@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إعدادات الحساب - TechEdX</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary-dark: #1e3a5f;
+            --primary-green: #2ecc71;
+            --light-bg: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--light-bg);
+        }
+        
+        .sidebar {
+            background-color: var(--primary-dark);
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            right: 0;
+            top: 0;
+            color: white;
+        }
+        
+        .main-content {
+            margin-right: 250px;
+        }
+        
+        .active-menu-item {
+            border-right: 4px solid var(--primary-green);
+            background-color: rgba(46, 204, 113, 0.1);
+        }
+        
+        .settings-card {
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 24px;
+            background-color: white;
+        }
+        
+        .settings-header {
+            background-color: var(--primary-dark);
+            color: white;
+            border-radius: 8px 8px 0 0;
+            padding: 12px 20px;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .toggle-slider {
+            background-color: var(--primary-green);
+        }
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(30px);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-green);
+            color: white;
+            padding: 10px 16px;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background-color: #27ae60;
+        }
+        
+        .btn-secondary {
+            background-color: #e0e0e0;
+            color: #333;
+            padding: 10px 16px;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #d0d0d0;
+        }
+        
+        .form-select {
+            display: block;
+            width: 100%;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex">
+        <!-- القائمة الجانبية -->
+        <div class="sidebar p-4 flex flex-col">
+            <div class="text-center mb-6">
+                <h1 class="text-2xl font-bold">TechEdX</h1>
+            </div>
+            
+            <div class="mb-4">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="text-lg">القائمة الرئيسية</h3>
+                </div>
+                
+                <ul class="space-y-2">
+                    <li class="p-2 hover:bg-opacity-20 hover:bg-white rounded transition-all">
+                        <a href="#" class="flex items-center">
+                            <i class="fas fa-tachometer-alt ml-2"></i>
+                            <span>لوحة التحكم</span>
+                        </a>
+                    </li>
+                    <li class="p-2 hover:bg-opacity-20 hover:bg-white rounded transition-all">
+                        <a href="#" class="flex items-center">
+                            <i class="fas fa-book ml-2"></i>
+                            <span>الدورات</span>
+                        </a>
+                    </li>
+                    <li class="p-2 hover:bg-opacity-20 hover:bg-white rounded transition-all">
+                        <a href="#" class="flex items-center">
+                            <i class="fas fa-vr-cardboard ml-2"></i>
+                            <span>المعامل الافتراضية</span>
+                        </a>
+                    </li>
+                    <li class="p-2 hover:bg-opacity-20 hover:bg-white rounded transition-all">
+                        <a href="#" class="flex items-center">
+                            <i class="fas fa-robot ml-2"></i>
+                            <span>المساعد الذكي</span>
+                        </a>
+                    </li>
+                    <li class="p-2 hover:bg-opacity-20 hover:bg-white rounded transition-all">
+                        <a href="#" class="flex items-center">
+                            <i class="fas fa-clipboard-list ml-2"></i>
+                            <span>الاختبارات</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="mb-4">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="text-lg">الإعدادات</h3>
+                </div>
+                
+                <ul class="space-y-2">
+                    <li class="p-2 hover:bg-opacity-20 hover:bg-white rounded transition-all">
+                        <a href="#" class="flex items-center">
+                            <i class="fas fa-user ml-2"></i>
+                            <span>الملف الشخصي</span>
+                        </a>
+                    </li>
+                    <li class="p-2 active-menu-item hover:bg-opacity-20 hover:bg-white rounded transition-all">
+                        <a href="#" class="flex items-center">
+                            <i class="fas fa-cog ml-2"></i>
+                            <span>الإعدادات</span>
+                        </a>
+                    </li>
+                    <li class="p-2 hover:bg-opacity-20 hover:bg-white rounded transition-all">
+                        <a href="#" class="flex items-center">
+                            <i class="fas fa-question-circle ml-2"></i>
+                            <span>المساعدة</span>
+                        </a>
+                    </li>
+                    <li class="p-2 hover:bg-opacity-20 hover:bg-white rounded transition-all">
+                        <a href="#" class="flex items-center">
+                            <i class="fas fa-sign-out-alt ml-2"></i>
+                            <span>تسجيل الخروج</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="mt-auto text-center text-sm">
+                <p>© TechEdX 2023</p>
+            </div>
+        </div>
+
+        <!-- المحتوى الرئيسي -->
+        <div class="main-content p-8 w-full">
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold text-gray-800">إعدادات الحساب</h1>
+                <p class="text-gray-600 mt-2">قم بتخصيص إعدادات حسابك لتجربة أفضل</p>
+            </div>
+
+            <!-- الإعدادات العامة -->
+            <div class="settings-card">
+                <div class="settings-header">
+                    <h2 class="text-xl font-bold">الإعدادات العامة</h2>
+                </div>
+                <div class="p-6">
+                    <!-- تفضيلات اللغة -->
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-medium mb-2">اللغة المفضلة</label>
+                        <select class="form-select">
+                            <option value="ar" selected>العربية</option>
+                            <option value="en">الإنجليزية</option>
+                            <option value="fr">الفرنسية</option>
+                        </select>
+                    </div>
+
+                    <!-- المنطقة الزمنية -->
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-medium mb-2">المنطقة الزمنية</label>
+                        <select class="form-select">
+                            <option value="cairo" selected>القاهرة (GMT+2)</option>
+                            <option value="riyadh">الرياض (GMT+3)</option>
+                            <option value="dubai">دبي (GMT+4)</option>
+                            <option value="london">لندن (GMT+0)</option>
+                        </select>
+                    </div>
+
+                    <!-- إظهار القائمة الجانبية -->
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <label class="block text-gray-700 font-medium">عرض القائمة الجانبية</label>
+                            <p class="text-gray-500 text-sm">إظهار أو إخفاء القائمة الجانبية افتراضيًا</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- إعدادات الإشعارات -->
+            <div class="settings-card">
+                <div class="settings-header">
+                    <h2 class="text-xl font-bold">إعدادات الإشعارات</h2>
+                </div>
+                <div class="p-6">
+                    <!-- إشعارات الدورات -->
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <label class="block text-gray-700 font-medium">إشعارات الدورات</label>
+                            <p class="text-gray-500 text-sm">استلام إشعارات عن الدورات الجديدة والتحديثات</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <!-- إشعارات الاختبارات -->
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <label class="block text-gray-700 font-medium">إشعارات الاختبارات</label>
+                            <p class="text-gray-500 text-sm">استلام إشعارات عن الاختبارات القادمة ونتائج الاختبارات</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <!-- إشعارات البريد الإلكتروني -->
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <label class="block text-gray-700 font-medium">إشعارات البريد الإلكتروني</label>
+                            <p class="text-gray-500 text-sm">استلام إشعارات عبر البريد الإلكتروني</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <!-- إشعارات المساعد الذكي -->
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <label class="block text-gray-700 font-medium">توصيات المساعد الذكي</label>
+                            <p class="text-gray-500 text-sm">استلام توصيات وتذكيرات من المساعد الذكي</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- خيارات العرض -->
+            <div class="settings-card">
+                <div class="settings-header">
+                    <h2 class="text-xl font-bold">خيارات العرض</h2>
+                </div>
+                <div class="p-6">
+                    <!-- النظام اللوني -->
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-medium mb-2">النظام اللوني</label>
+                        <select class="form-select">
+                            <option value="light" selected>فاتح</option>
+                            <option value="dark">داكن</option>
+                            <option value="auto">تلقائي (حسب نظام التشغيل)</option>
+                        </select>
+                    </div>
+
+                    <!-- حجم الخط -->
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-medium mb-2">حجم الخط</label>
+                        <div class="flex items-center">
+                            <span class="text-sm ml-2">صغير</span>
+                            <input type="range" min="1" max="3" value="2" class="w-full mx-2">
+                            <span class="text-sm mr-2">كبير</span>
+                        </div>
+                    </div>
+
+                    <!-- عرض المحتوى -->
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <label class="block text-gray-700 font-medium">وضع القراءة المركز</label>
+                            <p class="text-gray-500 text-sm">عرض المحتوى بطريقة مريحة للقراءة</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <!-- تفعيل الرسوم المتحركة -->
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <label class="block text-gray-700 font-medium">الرسوم المتحركة</label>
+                            <p class="text-gray-500 text-sm">تفعيل الرسوم المتحركة في واجهة المستخدم</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- إعدادات الخصوصية -->
+            <div class="settings-card">
+                <div class="settings-header">
+                    <h2 class="text-xl font-bold">إعدادات الخصوصية</h2>
+                </div>
+                <div class="p-6">
+                    <!-- الملف الشخصي العام -->
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <label class="block text-gray-700 font-medium">الملف الشخصي العام</label>
+                            <p class="text-gray-500 text-sm">جعل ملفك الشخصي مرئيًا للطلاب الآخرين</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <!-- إظهار مستوى التقدم -->
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <label class="block text-gray-700 font-medium">إظهار مستوى التقدم</label>
+                            <p class="text-gray-500 text-sm">مشاركة مستوى تقدمك في الدورات مع الآخرين</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <!-- تحليل البيانات -->
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <label class="block text-gray-700 font-medium">تحليل بيانات الاستخدام</label>
+                            <p class="text-gray-500 text-sm">السماح للمنصة بتحليل بيانات استخدامك لتحسين تجربتك</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <!-- حفظ سجل المساعد الذكي -->
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <label class="block text-gray-700 font-medium">حفظ سجل المساعد الذكي</label>
+                            <p class="text-gray-500 text-sm">حفظ سجل محادثاتك مع المساعد الذكي</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- أزرار الحفظ والإلغاء -->
+            <div class="flex justify-end space-x-4 mt-6">
+                <button class="btn-secondary">إلغاء التغييرات</button>
+                <button class="btn-primary mr-3">حفظ الإعدادات</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المعامل الافتراضية - TechEdX</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
+
+        :root {
+            --dark-blue: #1e3a5f;
+            --green: #4CAF50;
+            --light-blue: #3498db;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f9f9f9;
+        }
+
+        .sidebar {
+            background-color: var(--dark-blue);
+            color: white;
+            min-height: 100vh;
+            position: fixed;
+            width: 240px;
+        }
+
+        .content {
+            margin-right: 240px;
+        }
+
+        .menu-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .menu-item.active {
+            border-right: 4px solid var(--green);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .lab-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .lab-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            position: relative;
+            padding-right: 15px;
+        }
+
+        .section-title::before {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 5px;
+            height: 24px;
+            background-color: var(--green);
+            border-radius: 5px;
+        }
+
+        .btn-primary {
+            background-color: var(--green);
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #388e3c;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border: 2px solid var(--dark-blue);
+            color: var(--dark-blue);
+            transition: all 0.3s;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--dark-blue);
+            color: white;
+        }
+
+        @media print {
+            .sidebar {
+                display: none;
+            }
+
+            .content {
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Electronics Labs -->
+    <section class="mb-12">
+        <h2 class="section-title text-2xl font-bold text-gray-800 mb-6">معامل الإلكترونيات</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- البطاقات الحالية تبقى كما هي -->
+
+            <!-- بطاقة جديدة للمعمل الإلكتروني -->
+            <div class="lab-card bg-white rounded-lg overflow-hidden shadow-md">
+                <img src="https://lab-assets.dcaclab.com/dcaclab-home.png"
+
+                <div class="h-48 bg-gray-300 flex items-center justify-center">
+                    <i class="fas fa-project-diagram text-5xl text-gray-500"></i>
+                </div>
+                <div class="p-5">
+                    <h3 class="text-xl font-bold mb-2">معمل تصميم الدوائر الإلكترونية</h3>
+                    <p class="text-gray-600 mb-4">صمم ودوائرك الإلكترونية بشكل تفاعلي باستخدام أداة CircuitLab المتطورة.
+                    </p>
+                    <a href="https://www.circuitlab.com/editor/#?id=7pq5wm&from=homepage" target="_blank"
+                        class="inline-block px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300">ابدأ
+                        المعمل</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+       <!-- Electronics Labs -->
+       <section class="mb-12">
+        <h2 class="section-title text-2xl font-bold text-gray-800 mb-6">معامل الإلكترونيات</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- البطاقات الحالية تبقى كما هي -->
+
+            <!-- بطاقة جديدة للمعمل الإلكتروني -->
+            <div class="lab-card bg-white rounded-lg overflow-hidden shadow-md">
+                <img src="data:image/png;base64,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"
+
+                <div class="h-48 bg-gray-300 flex items-center justify-center">
+                    <i class="fas fa-project-diagram text-5xl text-gray-500"></i>
+                </div>
+                <div class="p-5">
+                    <h3 class="text-xl font-bold mb-2">معمل تصميم الدوائر الإلكترونية</h3>
+                    <p class="text-gray-600 mb-4">صمم ودوائرك الإلكترونية بشكل تفاعلي باستخدام أداة Phet المتطورة.
+                    </p>
+                    <a href="https://phet.colorado.edu/sims/html/circuit-construction-kit-dc-virtual-lab/latest/circuit-construction-kit-dc-virtual-lab_en.html" target="_blank"
+                        class="inline-block px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300">ابدأ
+                        المعمل</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+                      <!-- Electronics Labs -->
+       <section class="mb-12">
+        <h2 class="section-title text-2xl font-bold text-gray-800 mb-6">IOT simulator</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- البطاقات الحالية تبقى كما هي -->
+
+            <!-- بطاقة جديدة للمعمل الإلكتروني -->
+            <div class="lab-card bg-white rounded-lg overflow-hidden shadow-md">
+                <img src="data:image/jpeg;base64,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"
+
+                <div class="h-48 bg-gray-300 flex items-center justify-center">
+                    <i class="fas fa-project-diagram text-5xl text-gray-500"></i>
+                </div>
+                <div class="p-5">
+                    <h3 class="text-xl font-bold mb-2">معمل تصميم الدوائر الإلكترونية</h3>
+                    <p class="text-gray-600 mb-4">صمم ودوائرك الإلكترونية بشكل تفاعلي باستخدام أداة tinkercad المتطورة.
+                    </p>
+                    <a href="https://www.tinkercad.com/things/bJXG4xTskRm/editel?lessonid=EFU6PEHIXGFUR1J&projectid=OGK4Q7VL20FZRV9&collectionid=undefined&title=Editing%20Components#/lesson-viewer"
+                        class="inline-block px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300">ابدأ
+                        المعمل</a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="py-6 px-4 border-b border-gray-700">
+            <h1 class="text-2xl font-bold text-center">TechEdX</h1>
+        </div>
+
+        <div class="py-3">
+            <p class="px-4 text-gray-400 text-sm mb-2">القائمة الرئيسية</p>
+
+            <a href="#" class="menu-item">
+                <i class="fas fa-chart-line ml-3"></i>
+                <span>لوحة التحكم</span>
+            </a>
+
+            <a href="#" class="menu-item">
+                <i class="fas fa-book ml-3"></i>
+                <span>الدورات</span>
+            </a>
+
+            <a href="#" class="menu-item active">
+                <i class="fas fa-vr-cardboard ml-3"></i>
+                <span>المعامل الافتراضية</span>
+            </a>
+
+            <a href="#" class="menu-item">
+                <i class="fas fa-robot ml-3"></i>
+                <span>المساعد الذكي</span>
+            </a>
+
+            <a href="#" class="menu-item">
+                <i class="fas fa-clipboard-list ml-3"></i>
+                <span>الاختبارات</span>
+            </a>
+        </div>
+
+        <div class="py-3">
+            <p class="px-4 text-gray-400 text-sm mb-2">الإعدادات</p>
+
+            <a href="#" class="menu-item">
+                <i class="fas fa-user ml-3"></i>
+                <span>الملف الشخصي</span>
+            </a>
+
+            <a href="#" class="menu-item">
+                <i class="fas fa-cog ml-3"></i>
+                <span>الإعدادات</span>
+            </a>
+
+            <a href="#" class="menu-item">
+                <i class="fas fa-question-circle ml-3"></i>
+                <span>المساعدة</span>
+            </a>
+
+            <a href="#" class="menu-item">
+                <i class="fas fa-sign-out-alt ml-3"></i>
+                <span>تسجيل الخروج</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content py-8 px-8">
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">المعامل الافتراضية <i
+                    class="fas fa-vr-cardboard text-green-500 mr-2"></i></h1>
+            <p class="text-gray-600">استكشف عالم التجارب العملية من خلال معاملنا الافتراضية المتطورة، واختبر ما تتعلمه
+                في بيئة آمنة وتفاعلية.</p>
+        </header>
+
+        <!-- VR Introduction Section -->
+        <section class="mb-12 bg-white p-6 rounded-lg shadow-md">
+            <div class="flex flex-col md:flex-row gap-6">
+                <div class="md:w-2/3">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">تجربة تعليمية مبتكرة بتقنية الواقع الافتراضي</h2>
+                    <p class="text-gray-700 mb-4">تتيح لك معامل TechEdX الافتراضية تجربة عملية غنية ومتكاملة باستخدام
+                        تقنيات الواقع الافتراضي المتطورة، حيث يمكنك:</p>
+                    <ul class="list-disc list-inside mb-4 space-y-2 pr-4 text-gray-700">
+                        <li>استكشاف المفاهيم المعقدة من خلال النماذج ثلاثية الأبعاد التفاعلية</li>
+                        <li>إجراء التجارب العملية بدون قيود زمانية أو مكانية</li>
+                        <li>تطبيق النظريات في بيئة افتراضية آمنة قبل التعامل مع الأجهزة الحقيقية</li>
+                        <li>التعاون مع زملائك في مشاريع مشتركة في نفس البيئة الافتراضية</li>
+                        <li>تطوير المهارات العملية اللازمة للنجاح في سوق العمل</li>
+                    </ul>
+                    <div class="flex gap-4">
+                        <button class="btn-primary px-6 py-2 rounded-md text-white font-medium">ابدأ الآن</button>
+                        <button class="btn-outline px-6 py-2 rounded-md font-medium">شاهد فيديو تعريفي</button>
+                    </div>
+                </div>
+                <div class="md:w-1/3 flex items-center justify-center">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original-wordmark.svg"
+                        alt="الواقع الافتراضي" class="w-64 h-64">
+                </div>
+            </div>
+        </section>
+
+        <!-- How to use VR section -->
+        <section class="mb-12 bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">كيفية استخدام المعامل الافتراضية</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-blue-50 p-5 rounded-lg">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-desktop text-2xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">1. تصفح المعامل</h3>
+                    <p class="text-gray-700">اختر المعمل المناسب لمجال دراستك أو اهتماماتك من القائمة أدناه</p>
+                </div>
+
+                <div class="bg-blue-50 p-5 rounded-lg">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-vr-cardboard text-2xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">2. تجهيز معدات VR</h3>
+                    <p class="text-gray-700">قم بتوصيل نظارة الواقع الافتراضي بجهازك أو استخدم النسخة ثنائية الأبعاد</p>
+                </div>
+
+                <div class="bg-blue-50 p-5 rounded-lg">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-flask text-2xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">3. ابدأ التجربة</h3>
+                    <p class="text-gray-700">اتبع الإرشادات داخل المعمل الافتراضي لإجراء التجارب بشكل صحيح</p>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <h3 class="text-lg font-semibold mb-2 flex items-center">
+                    <i class="fas fa-lightbulb text-yellow-500 ml-2"></i>
+                    نصائح للتجربة المثالية
+                </h3>
+                <ul class="list-disc list-inside space-y-1 pr-4 text-gray-700">
+                    <li>تأكد من وجود مساحة كافية حولك عند استخدام نظارة الواقع الافتراضي</li>
+                    <li>يمكنك استخدام أجهزة التحكم باليد للتفاعل بشكل أفضل مع المكونات</li>
+                    <li>إذا شعرت بدوار الحركة، خذ استراحة قصيرة ثم عاود التجربة</li>
+                    <li>يمكنك حفظ نتائج تجاربك لمراجعتها لاحقاً</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Physics Labs -->
+        <section class="mb-12">
+            <h2 class="section-title text-2xl font-bold text-gray-800 mb-6">معامل الفيزياء</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="lab-card bg-white rounded-lg overflow-hidden shadow-md">
+                    <div class="h-48 bg-gray-300 flex items-center justify-center">
+                        <i class="fas fa-atom text-5xl text-gray-500"></i>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">معمل الميكانيكا</h3>
+                        <p class="text-gray-600 mb-4">استكشف قوانين نيوتن للحركة من خلال تجارب تفاعلية ومحاكاة دقيقة
+                            للأنظمة الميكانيكية المختلفة.</p>
+                        <a href="#"
+                            class="inline-block px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300">ابدأ
+                            المعمل</a>
+                    </div>
+                </div>
+
+                <div class="lab-card bg-white rounded-lg overflow-hidden shadow-md">
+                    <div class="h-48 bg-gray-300 flex items-center justify-center">
+                        <i class="fas fa-bolt text-5xl text-gray-500"></i>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">معمل الكهرومغناطيسية</h3>
+                        <p class="text-gray-600 mb-4">اختبر المفاهيم الأساسية للكهرباء والمغناطيسية من خلال تجارب
+                            تفاعلية في بيئة افتراضية آمنة.</p>
+                        <a href="#"
+                            class="inline-block px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300">ابدأ
+                            المعمل</a>
+                    </div>
+                </div>
+
+                <div class="lab-card bg-white rounded-lg overflow-hidden shadow-md">
+                    <div class="h-48 bg-gray-300 flex items-center justify-center">
+                        <i class="fas fa-wave-square text-5xl text-gray-500"></i>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">معمل الموجات والصوت</h3>
+                        <p class="text-gray-600 mb-4">استكشف خصائص الموجات وتطبيقاتها في مجال الصوت والضوء من خلال نماذج
+                            تفاعلية متطورة.</p>
+                        <a href="#"
+                            class="inline-block px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300">ابدأ
+                            المعمل</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Electronics Labs -->
+        <section class="mb-12">
+            <h2 class="section-title text-2xl font-bold text-gray-800 mb-6">معامل الإلكترونيات</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="lab-card bg-white rounded-lg overflow-hidden shadow-md">
+                    <div class="h-48 bg-gray-300 flex items-center justify-center">
+                        <i class="fas fa-microchip text-5xl text-gray-500"></i>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">معمل الدوائر الإلكترونية</h3>
+                        <p class="text-gray-600 mb-4">صمم وحلل وجرب الدوائر الإلكترونية المختلفة في بيئة افتراضية
+                            متكاملة بدون خوف من الأخطاء.</p>
+                        <a href="#"
+                            class="inline-block px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300">ابدأ
+                            المعمل</a>
+                    </div>
+                </div>
+
+                <div class="lab-card bg-white rounded-lg overflow-hidden shadow-md">
+                    <div class="h-48 bg-gray-300 flex items-center justify-center">
+                        <i class="fas fa-project-diagram text-5xl text-gray-500"></i>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">معمل أنظمة التحكم</h3>
+                        <p class="text-gray-600 mb-4">استكشف أنظمة التحكم الآلي وتطبيقاتها في الصناعة من خلال نماذج
+                            محاكاة دقيقة لأنظمة حقيقية.</p>
+                        <a href="#"
+                            class="inline-block px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300">ابدأ
+                            المعمل</a>
+                    </div>
+                </div>
+
+                <div class="lab-card bg-white rounded-lg overflow-hidden shadow-md">
+                    <div class="h-48 bg-gray-300 flex items-center justify-center">
+                        <i class="fas fa-signal text-5xl text-gray-500"></i>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">معمل الاتصالات</h3>
+                        <p class="text-gray-600 mb-4">تعلم وجرب أساسيات أنظمة الاتصالات الرقمية والتناظرية من خلال تجارب
+                            عملية تفاعلية.</p>
+                        <a href="#"
+                            class="inline-block px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300">ابدأ
+                            المعمل</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Programming Labs -->
+        <section class="mb-12">
+            <h2 class="section-title text-2xl font-bold text-gray-800 mb-6">معامل البرمجة</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="lab-card bg-white rounded-lg overflow-hidden shadow-md">
+                    <div class="h-48 bg-gray-300 flex items-center justify-center">
+                        <i class="fas fa-code text-5xl text-gray-500"></i>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">معمل بنية البيانات والخوارزميات</h3>
+                        <p class="text-gray-600 mb-4">استكشف وتفاعل مع تمثيلات بصرية ثلاثية الأبعاد لبنى البيانات
+                            والخوارزميات الشائعة.</p>
+                        <a href="#"
+                            class="inline-block px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300">ابدأ
+                            المعمل</a>
+                    </div>
+                </div>
+
+                <div class="lab-card bg-white rounded-lg overflow-hidden shadow-md">
+                    <div class="h-48 bg-gray-300 flex items-center justify-center">
+                        <i class="fas fa-robot text-5xl text-gray-500"></i>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">معمل الذكاء الاصطناعي</h3>
+                        <p class="text-gray-600 mb-4">جرب وطور خوارزميات الذكاء الاصطناعي وشاهد تأثيراتها في بيئة
+                            افتراضية تفاعلية.</p>
+                        <a href="#"
+                            class="inline-block px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300">ابدأ
+                            المعمل</a>
+                    </div>
+                </div>
+
+                <div class="lab-card bg-white rounded-lg overflow-hidden shadow-md">
+                    <div class="h-48 bg-gray-300 flex items-center justify-center">
+                        <i class="fas fa-globe text-5xl text-gray-500"></i>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">معمل تطوير الويب</h3>
+                        <p class="text-gray-600 mb-4">ابني وصمم تطبيقات الويب في بيئة افتراضية وشاهد نتائج تعديلاتك بشكل
+                            فوري ومباشر.</p>
+                        <a href="#"
+                            class="inline-block px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300">ابدأ
+                            المعمل</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="mb-12 bg-gray-50 p-6 rounded-lg">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">آراء الطلاب</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-5 rounded-lg shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div
+                            class="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center text-blue-700 font-bold ml-3">
+                            أ.س</div>
+                        <div>
+                            <h4 class="font-semibold">أحمد سمير</h4>
+                            <p class="text-sm text-gray-500">طالب هندسة إلكترونيات - السنة الرابعة</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"معامل الإلكترونيات الافتراضية ساعدتني على فهم الدوائر المعقدة بشكل أفضل.
+                        التفاعل مع المكونات في بيئة ثلاثية الأبعاد يجعل التعلم أكثر متعة وفعالية."</p>
+                    <div class="mt-3 flex">
+                        <i class="fas fa-star text-yellow-500"></i>
+                        <i class="fas fa-star text-yellow-500"></i>
+                        <i class="fas fa-star text-yellow-500"></i>
+                        <i class="fas fa-star text-yellow-500"></i>
+                        <i class="fas fa-star text-yellow-500"></i>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-lg shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div
+                            class="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center text-green-700 font-bold ml-3">
+                            ر.م</div>
+                        <div>
+                            <h4 class="font-semibold">رنا محمد</h4>
+                            <p class="text-sm text-gray-500">طالبة هندسة برمجيات - السنة الثالثة</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"تمكنت من تطبيق خوارزميات معقدة في معمل الذكاء الاصطناعي ورؤية النتائج بشكل
+                        فوري. هذه التجربة ساعدتني على فهم المفاهيم النظرية بشكل عملي وممتع."</p>
+                    <div class="mt-3 flex">
+                        <i class="fas fa-star text-yellow-500"></i>
+                        <i class="fas fa-star text-yellow-500"></i>
+                        <i class="fas fa-star text-yellow-500"></i>
+                        <i class="fas fa-star text-yellow-500"></i>
+                        <i class="fas fa-star-half-alt text-yellow-500"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="mb-12">
+            <h2 class="section-title text-2xl font-bold text-gray-800 mb-6">الأسئلة الشائعة</h2>
+
+            <div class="space-y-4">
+                <div class="bg-white p-5 rounded-lg shadow-sm">
+                    <h3 class="font-bold mb-2 text-lg">هل أحتاج لجهاز واقع افتراضي خاص لاستخدام المعامل؟</h3>
+                    <p class="text-gray-700">لا، يمكنك استخدام المعامل الافتراضية بدون نظارة VR من خلال شاشة الكمبيوتر
+                        العادية، ولكن استخدام نظارة الواقع الافتراضي يعزز من تجربة التعلم ويجعلها أكثر تفاعلية.</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-lg shadow-sm">
+                    <h3 class="font-bold mb-2 text-lg">هل يمكنني حفظ نتائج تجاربي في المعامل الافتراضية؟</h3>
+                    <p class="text-gray-700">نعم، توفر منصة TechEdX إمكانية حفظ نتائج التجارب وتقاريرها لمراجعتها
+                        لاحقاً، ويمكنك أيضاً مشاركتها مع أساتذتك أو زملائك.</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-lg shadow-sm">
+                    <h3 class="font-bold mb-2 text-lg">كيف يمكنني الحصول على المساعدة إذا واجهت صعوبة في استخدام
+                        المعامل؟</h3>
+                    <p class="text-gray-700">يمكنك التواصل مع فريق الدعم الفني في أي وقت أو استخدام المساعد الذكي الذي
+                        يقدم إرشادات فورية لحل المشكلات الشائعة.</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-lg shadow-sm">
+                    <h3 class="font-bold mb-2 text-lg">هل المعامل الافتراضية معتمدة من قبل الجامعات؟</h3>
+                    <p class="text-gray-700">نعم، تم تصميم المعامل الافتراضية بالتعاون مع أساتذة جامعيين متخصصين لضمان
+                        توافقها مع المناهج الدراسية وتحقيق أهداف التعلم المطلوبة.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="mb-12 bg-dark-blue rounded-lg overflow-hidden">
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-2/3 p-8">
+                    <h2 class="text-2xl font-bold text-white mb-4">ابدأ رحلتك مع المعامل الافتراضية اليوم</h2>
+                    <p class="text-blue-100 mb-6">انضم إلى آلاف الطلاب الذين يستفيدون من تجربة التعلم الافتراضي المبتكرة
+                        على منصة TechEdX.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <button
+                            class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-md font-medium transition duration-300">سجل
+                            الآن مجاناً</button>
+                        <button
+                            class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-md font-medium hover:bg-white hover:text-dark-blue transition duration-300">تواصل
+                            معنا</button>
+                    </div>
+                </div>
+                <div class="md:w-1/3 bg-blue-900 flex items-center justify-center p-8">
+                    <i class="fas fa-vr-cardboard text-8xl text-white opacity-50"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-12 pt-8 border-t border-gray-200">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="font-bold text-lg mb-4">TechEdX</h3>
+                    <p class="text-gray-600">منصة تعليمية مبتكرة تجمع بين قوة الذكاء الاصطناعي وتقنيات الواقع الافتراضي.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-lg mb-4">روابط سريعة</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><a href="#" class="hover:text-green-500">الرئيسية</a></li>
+                        <li><a href="#" class="hover:text-green-500">الدورات</a></li>
+                        <li><a href="#" class="hover:text-green-500">المعامل الافتراضية</a></li>
+                        <li><a href="#" class="hover:text-green-500">المساعد الذكي</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-lg mb-4">تواصل معنا</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li class="flex items-center">
+                            <i class="fas fa-phone ml-2 text-green-500"></i>
+                            <a href="https://wa.me/+201013089663">+20 101 308 9663 - مصعب محمد</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone ml-2 text-green-500"></i>
+                            <a href="https://wa.me/01551079862">01551079862 - محمد عمر</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope ml-2 text-green-500"></i>
+                            <a href="mailto:info@techedx.com">info@techedx.com</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-lg mb-4">تابعنا</h3>
+                    <div class="flex space-x-reverse space-x-4">
+                        <a href="#"
+                            class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 bg-blue-400 text-white rounded-full flex items-center justify-center hover:bg-blue-500">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 bg-pink-600 text-white rounded-full flex items-center justify-center hover:bg-pink-700">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center hover:bg-red-700">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-200 pt-6 pb-8">
+                <p class="text-center text-gray-500">&copy; 2023 TechEdX. جميع الحقوق محفوظة.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

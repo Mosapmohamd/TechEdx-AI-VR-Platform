@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المساعد الذكي - TechEdX</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap');
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f0f4f8;
+        }
+        
+        .sidebar {
+            background-color: #1e3a5f;
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            right: 0;
+        }
+        
+        .main-content {
+            margin-right: 250px;
+        }
+        
+        .chat-container {
+            height: calc(100vh - 180px);
+            overflow-y: auto;
+        }
+        
+        .bot-message {
+            background-color: #e2f0d9;
+            border-radius: 15px 0 15px 15px;
+        }
+        
+        .user-message {
+            background-color: #1e3a5f;
+            color: white;
+            border-radius: 0 15px 15px 15px;
+        }
+        
+        .menu-item {
+            transition: all 0.3s;
+        }
+        
+        .menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .menu-item.active {
+            border-right: 4px solid #4caf50;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        .suggestion-pill {
+            background-color: #1e3a5f;
+            color: white;
+            border-radius: 20px;
+            padding: 5px 15px;
+            margin: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .suggestion-pill:hover {
+            background-color: #2e4a6f;
+        }
+        
+        @media print {
+            .sidebar {
+                position: absolute;
+            }
+            .main-content {
+                margin-right: 0;
+            }
+            .chat-container {
+                height: auto;
+                overflow: visible;
+            }
+            .input-container {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="px-4 py-6 text-center">
+            <h1 class="text-white text-2xl font-bold">TechEdX</h1>
+        </div>
+        
+        <div class="mt-6">
+            <h3 class="text-gray-400 text-sm px-4 mb-2">القائمة الرئيسية</h3>
+            
+            <a href="#" class="menu-item flex items-center px-4 py-3 text-gray-300">
+                <i class="fas fa-chart-line w-6"></i>
+                <span class="mr-3">لوحة التحكم</span>
+            </a>
+            
+            <a href="#" class="menu-item flex items-center px-4 py-3 text-gray-300">
+                <i class="fas fa-book w-6"></i>
+                <span class="mr-3">الدورات</span>
+            </a>
+            
+            <a href="#" class="menu-item flex items-center px-4 py-3 text-gray-300">
+                <i class="fas fa-vr-cardboard w-6"></i>
+                <span class="mr-3">المعامل الافتراضية</span>
+            </a>
+            
+            <a href="#" class="menu-item active flex items-center px-4 py-3 text-white">
+                <i class="fas fa-robot w-6"></i>
+                <span class="mr-3">المساعد الذكي</span>
+            </a>
+            
+            <a href="#" class="menu-item flex items-center px-4 py-3 text-gray-300">
+                <i class="fas fa-clipboard w-6"></i>
+                <span class="mr-3">الاختبارات</span>
+            </a>
+            
+            <h3 class="text-gray-400 text-sm px-4 mb-2 mt-6">الإعدادات</h3>
+            
+            <a href="#" class="menu-item flex items-center px-4 py-3 text-gray-300">
+                <i class="fas fa-user w-6"></i>
+                <span class="mr-3">الملف الشخصي</span>
+            </a>
+            
+            <a href="#" class="menu-item flex items-center px-4 py-3 text-gray-300">
+                <i class="fas fa-cog w-6"></i>
+                <span class="mr-3">الإعدادات</span>
+            </a>
+            
+            <a href="#" class="menu-item flex items-center px-4 py-3 text-gray-300">
+                <i class="fas fa-question-circle w-6"></i>
+                <span class="mr-3">المساعدة</span>
+            </a>
+            
+            <a href="#" class="menu-item flex items-center px-4 py-3 text-gray-300">
+                <i class="fas fa-sign-out-alt w-6"></i>
+                <span class="mr-3">تسجيل الخروج</span>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content min-h-screen bg-white">
+        <header class="bg-white shadow-sm p-4">
+            <div class="container mx-auto flex justify-between items-center">
+                <h1 class="text-xl font-bold text-gray-800">المساعد الذكي</h1>
+                <div class="flex items-center">
+                    <div class="relative">
+                        <span class="absolute top-0 right-0 w-2 h-2 bg-green-500 rounded-full"></span>
+                        <img src="https://via.placeholder.com/40" alt="User" class="w-10 h-10 rounded-full border-2 border-gray-200">
+                    </div>
+                    <span class="mr-3 font-medium">محمد أحمد</span>
+                </div>
+            </div>
+        </header>
+        
+        <div class="container mx-auto p-4">
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="bg-gray-100 p-4 border-b">
+                    <div class="flex items-center">
+                        <div class="bg-green-100 p-2 rounded-full">
+                            <i class="fas fa-robot text-green-600 text-xl"></i>
+                        </div>
+                        <div class="mr-3">
+                            <h3 class="font-bold">المساعد الذكي</h3>
+                            <p class="text-sm text-gray-600">متصل دائماً لمساعدتك</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chat-container p-4">
+                    <!-- Bot welcome message -->
+                    <div class="flex mb-4">
+                        <div class="bot-message p-3 max-w-3/4 shadow-sm">
+                            <p>مرحباً بك محمد! أنا المساعد الذكي الخاص بمنصة TechEdX. كيف يمكنني مساعدتك اليوم؟</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Suggestions -->
+                    <div class="mb-6 text-center">
+                        <div class="suggestion-pill">كيف أبدأ دورة جديدة؟</div>
+                        <div class="suggestion-pill">ما هي المعامل الافتراضية المتاحة؟</div>
+                        <div class="suggestion-pill">مواعيد الاختبارات القادمة</div>
+                    </div>
+                    
+                    <!-- User message -->
+                    <div class="flex justify-end mb-4">
+                        <div class="user-message p-3 max-w-3/4 shadow-sm">
+                            <p>أريد معرفة معلومات عن دورة أساسيات الذكاء الاصطناعي</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Bot response with course info -->
+                    <div class="flex mb-4">
+                        <div class="bot-message p-3 max-w-3/4 shadow-sm">
+                            <p>دورة "أساسيات الذكاء الاصطناعي" هي دورة تمهيدية تغطي المفاهيم الأساسية في مجال الذكاء الاصطناعي. تشمل الدورة المواضيع التالية:</p>
+                            <ul class="list-disc mr-5 mt-2">
+                                <li>مقدمة في الذكاء الاصطناعي وتطبيقاته</li>
+                                <li>خوارزميات التعلم الآلي الأساسية</li>
+                                <li>الشبكات العصبية والتعلم العميق</li>
+                                <li>معالجة اللغات الطبيعية</li>
+                                <li>تطبيقات عملية وورش عمل</li>
+                            </ul>
+                            <p class="mt-2">تستغرق الدورة 8 أسابيع، بمعدل 5 ساعات أسبوعياً. لقد أكملت بالفعل الوحدتين الأوليين، والوحدة الثالثة معلقة حالياً.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- User message -->
+                    <div class="flex justify-end mb-4">
+                        <div class="user-message p-3 max-w-3/4 shadow-sm">
+                            <p>ماذا تتضمن الوحدة الثالثة من الدورة؟</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Bot response about module 3 -->
+                    <div class="flex mb-4">
+                        <div class="bot-message p-3 max-w-3/4 shadow-sm">
+                            <p>الوحدة الثالثة تركز على "الشبكات العصبية والتعلم العميق" وتشمل المواضيع التالية:</p>
+                            <ul class="list-disc mr-5 mt-2">
+                                <li>مقدمة في الشبكات العصبية الاصطناعية</li>
+                                <li>هيكل ووظيفة الشبكات العصبية</li>
+                                <li>خوارزميات الانتشار الخلفي</li>
+                                <li>الشبكات العصبية التلافيفية (CNN)</li>
+                                <li>تطبيقات عملية على التعرف على الصور</li>
+                            </ul>
+                            <p class="mt-2">بناءً على أدائك السابق، أرى أنك تتقن مفاهيم التعلم الآلي الأساسية جيداً، لكنك قد تحتاج إلى مزيد من التركيز على فهم الشبكات العصبية. أنصحك بمشاهدة الفيديوهات التعليمية المرفقة والمشاركة في ورشة العمل الافتراضية المقررة يوم الأربعاء القادم.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- User message -->
+                    <div class="flex justify-end mb-4">
+                        <div class="user-message p-3 max-w-3/4 shadow-sm">
+                            <p>هل يمكنني تجربة معمل افتراضي للشبكات العصبية؟</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Bot response with lab info -->
+                    <div class="flex mb-4">
+                        <div class="bot-message p-3 max-w-3/4 shadow-sm">
+                            <p>نعم بالطبع! يتوفر لدينا معمل افتراضي للشبكات العصبية يتيح لك:</p>
+                            <ul class="list-disc mr-5 mt-2">
+                                <li>بناء نموذج شبكة عصبية بسيطة في بيئة ثلاثية الأبعاد</li>
+                                <li>تغيير معاملات النموذج ومشاهدة التأثير مباشرة</li>
+                                <li>تدريب النموذج على مجموعات بيانات مختلفة</li>
+                                <li>تحليل نتائج النموذج بصرياً</li>
+                            </ul>
+                            <p class="mt-2">يمكنك الوصول إلى المعمل من خلال قسم <strong>"المعامل الافتراضية"</strong> في القائمة الرئيسية. أنصحك بتخصيص ساعة على الأقل لاستكشاف المعمل بشكل كامل.</p>
+                            <div class="mt-3">
+                                <a href="#" class="bg-green-500 text-white px-4 py-2 rounded-lg inline-block hover:bg-green-600 transition-colors">الذهاب إلى المعمل الافتراضي</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Suggestions -->
+                    <div class="mt-8 mb-4 text-center">
+                        <p class="text-gray-600 mb-2">اقتراحات أخرى:</p>
+                        <div class="suggestion-pill">متى موعد الاختبار القادم؟</div>
+                        <div class="suggestion-pill">ما هي توصياتك لدراستي؟</div>
+                        <div class="suggestion-pill">كيف أتواصل مع أستاذ المادة؟</div>
+                    </div>
+                </div>
+                
+                <!-- Input area -->
+                <div class="input-container border-t p-4">
+                    <div class="flex">
+                        <button class="bg-gray-200 hover:bg-gray-300 rounded-full p-2 transition-colors">
+                            <i class="fas fa-paperclip text-gray-600"></i>
+                        </button>
+                        <input type="text" placeholder="اكتب سؤالك هنا..." class="flex-1 border rounded-full px-4 py-2 mx-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                        <button class="bg-green-500 hover:bg-green-600 rounded-full w-10 h-10 flex items-center justify-center transition-colors">
+                            <i class="fas fa-paper-plane text-white"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Course progress card -->
+            <div class="mt-6 bg-white rounded-lg shadow-lg p-4">
+                <h3 class="font-bold text-lg mb-3">تقدمك في دورة أساسيات الذكاء الاصطناعي</h3>
+                <div class="w-full bg-gray-200 rounded-full h-4">
+                    <div class="bg-green-500 h-4 rounded-full" style="width: 65%"></div>
+                </div>
+                <div class="flex justify-between mt-2 text-sm text-gray-600">
+                    <span>0%</span>
+                    <span>65% مكتمل</span>
+                    <span>100%</span>
+                </div>
+                
+                <div class="mt-4">
+                    <h4 class="font-medium">الوحدات المكتملة:</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+                        <div class="flex items-center">
+                            <div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
+                                <i class="fas fa-check text-white text-xs"></i>
+                            </div>
+                            <span class="mr-2">الوحدة 1: مقدمة في الذكاء الاصطناعي</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
+                                <i class="fas fa-check text-white text-xs"></i>
+                            </div>
+                            <span class="mr-2">الوحدة 2: خوارزميات التعلم الآلي</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-6 h-6 rounded-full bg-yellow-500 flex items-center justify-center">
+                                <i class="fas fa-clock text-white text-xs"></i>
+                            </div>
+                            <span class="mr-2">الوحدة 3: الشبكات العصبية والتعلم العميق</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center">
+                                <i class="fas fa-lock text-white text-xs"></i>
+                            </div>
+                            <span class="mr-2">الوحدة 4: معالجة اللغات الطبيعية</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recommendations -->
+            <div class="mt-6 bg-white rounded-lg shadow-lg p-4 mb-10">
+                <h3 class="font-bold text-lg mb-3">توصيات المساعد الذكي</h3>
+                <div class="space-y-4">
+                    <div class="border-r-4 border-green-500 bg-green-50 p-3 rounded-l">
+                        <h4 class="font-medium">المهام ذات الأولوية</h4>
+                        <p class="text-sm text-gray-600 mt-1">إكمال الوحدة 3 من دورة أساسيات الذكاء الاصطناعي قبل الاختبار النصفي في 25 أبريل.</p>
+                    </div>
+                    
+                    <div class="border-r-4 border-blue-500 bg-blue-50 p-3 rounded-l">
+                        <h4 class="font-medium">مصادر مقترحة</h4>
+                        <p class="text-sm text-gray-600 mt-1">مقالة "فهم الشبكات العصبية العميقة" والفيديو التعليمي "تطبيقات عملية على الـ CNN" سيساعدانك في فهم الوحدة الثالثة بشكل أفضل.</p>
+                    </div>
+                    
+                    <div class="border-r-4 border-purple-500 bg-purple-50 p-3 rounded-l">
+                        <h4 class="font-medium">ورش عمل ومحاضرات</h4>
+                        <p class="text-sm text-gray-600 mt-1">ورشة عمل "بناء وتدريب نموذج شبكة عصبية" يوم الأربعاء 20 أبريل، الساعة 5 مساءً. يُنصح بالحضور لتعزيز فهمك العملي.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Simple chatbot functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatInput = document.querySelector('input');
+            const chatContainer = document.querySelector('.chat-container');
+            const sendButton = document.querySelector('.fa-paper-plane').parentElement;
+            const suggestionPills = document.querySelectorAll('.suggestion-pill');
+            
+            // Handle send button click
+            sendButton.addEventListener('click', () => {
+                sendMessage();
+            });
+            
+            // Handle enter key press
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            // Handle suggestion pills
+            suggestionPills.forEach(pill => {
+                pill.addEventListener('click', () => {
+                    const question = pill.textContent;
+                    chatInput.value = question;
+                    sendMessage();
+                });
+            });
+            
+            function sendMessage() {
+                const message = chatInput.value.trim();
+                if (message) {
+                    // Add user message
+                    const userMessageDiv = document.createElement('div');
+                    userMessageDiv.className = 'flex justify-end mb-4';
+                    userMessageDiv.innerHTML = `
+                        <div class="user-message p-3 max-w-3/4 shadow-sm">
+                            <p>${message}</p>
+                        </div>
+                    `;
+                    chatContainer.appendChild(userMessageDiv);
+                    
+                    // Clear input
+                    chatInput.value = '';
+                    
+                    // Scroll to bottom
+                    chatContainer.scrollTop = chatContainer.scrollHeight;
+                    
+                    // Simulate bot response after a delay
+                    setTimeout(() => {
+                        let botResponse = '';
+                        
+                        // Simple responses based on keywords
+                        if (message.includes('اختبار') || message.includes('موعد الاختبار')) {
+                            botResponse = `
+                                <p>الاختبار النصفي لدورة أساسيات الذكاء الاصطناعي سيكون يوم الخميس 25 أبريل، من الساعة 2 إلى 4 مساءً.</p>
+                                <p class="mt-2">المواضيع المشمولة في الاختبار:</p>
+                                <ul class="list-disc mr-5 mt-1">
+                                    <li>أساسيات الذكاء الاصطناعي</li>
+                                    <li>خوارزميات التعلم الآلي</li>
+                                    <li>الشبكات العصبية</li>
+                                </ul>
+                                <p class="mt-2">يمكنك الوصول إلى نماذج الاختبارات السابقة من خلال قسم الاختبارات في القائمة الرئيسية.</p>
+                            `;
+                        } else if (message.includes('توصيات') || message.includes('نصائح')) {
+                            botResponse = `
+                                <p>بناءً على أدائك، إليك بعض التوصيات لتحسين دراستك:</p>
+                                <ul class="list-disc mr-5 mt-2">
+                                    <li>تخصيص وقت أكبر لمراجعة مفاهيم الشبكات العصبية التلافيفية</li>
+                                    <li>المشاركة في ورش العمل العملية لتعزيز فهمك التطبيقي</li>
+                                    <li>الاطلاع على المقالات الإضافية المتعلقة بتطبيقات الذكاء الاصطناعي في مجال تخصصك</li>
+                                    <li>التواصل مع زملائك في مجموعات الدراسة لتبادل الخبرات</li>
+                                </ul>
+                                <p class="mt-2">هل ترغب في جدول دراسي مقترح لتنظيم وقتك؟</p>
+                            `;
+                        } else if (message.includes('أستاذ') || message.includes('تواصل')) {
+                            botResponse = `
+                                <p>يمكنك التواصل مع أستاذ مادة أساسيات الذكاء الاصطناعي د. أحمد محمود عبر:</p>
+                                <ul class="list-disc mr-5 mt-2">
+                                    <li>البريد الإلكتروني: a.mahmoud@techedx.edu</li>
+                                    <li>الساعات المكتبية: الأحد والثلاثاء من 1-3 مساءً</li>
+                                    <li>منصة التواصل: يمكنك إرسال رسالة مباشرة من خلال نظام التواصل الداخلي في المنصة</li>
+                                </ul>
+                                <p class="mt-2">الأستاذ متاح أيضاً للاستشارات عبر الجلسات الافتراضية الأسبوعية كل يوم خميس الساعة 6 مساءً.</p>
+                            `;
+                        } else {
+                            botResponse = `
+                                <p>شكراً على سؤالك. يمكنني مساعدتك في معرفة المزيد عن دورات منصة TechEdX والمعامل الافتراضية والاختبارات وتقدمك الدراسي.</p>
+                                <p class="mt-2">هل تريد معلومات محددة عن إحدى الدورات أو المعامل الافتراضية؟ أو هل لديك استفسار آخر يمكنني مساعدتك فيه؟</p>
+                            `;
+                        }
+                        
+                        // Add bot response
+                        const botMessageDiv = document.createElement('div');
+                        botMessageDiv.className = 'flex mb-4';
+                        botMessageDiv.innerHTML = `
+                            <div class="bot-message p-3 max-w-3/4 shadow-sm">
+                                ${botResponse}
+                            </div>
+                        `;
+                        chatContainer.appendChild(botMessageDiv);
+                        
+                        // Scroll to bottom
+                        chatContainer.scrollTop = chatContainer.scrollHeight;
+                    }, 1000);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

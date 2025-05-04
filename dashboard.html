@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم الطالب - TechEdX</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap');
+        
+        :root {
+            --primary-color: #1E3A5F;
+            --secondary-color: #28a745;
+            --light-bg: #f8f9fa;
+            --dark-text: #212529;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f5f7fa;
+        }
+        
+        .sidebar {
+            background-color: var(--primary-color);
+            min-height: 100vh;
+            position: fixed;
+            width: 240px;
+        }
+        
+        .main-content {
+            margin-right: 240px;
+        }
+        
+        .active-menu-item {
+            border-right: 4px solid var(--secondary-color);
+            background-color: rgba(40, 167, 69, 0.1);
+        }
+        
+        .progress-bar {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #e9ecef;
+        }
+        
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            background-color: var(--secondary-color);
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .chart-bar {
+            width: 20px;
+            background-color: var(--secondary-color);
+            border-radius: 4px 4px 0 0;
+            margin: 0 4px;
+        }
+        
+        .badge-success {
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 20px;
+            padding: 4px 10px;
+            font-size: 12px;
+        }
+        
+        .course-card, .lab-card, .exam-card {
+            border-right: 4px solid var(--secondary-color);
+        }
+        
+        .ai-recommendation {
+            background-color: #f8f9fa;
+            border-right: 4px solid #17a2b8;
+        }
+        
+        @media print {
+            .sidebar {
+                display: none;
+            }
+            .main-content {
+                margin-right: 0;
+            }
+            .card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar text-white py-4">
+        <div class="text-center mb-6">
+            <h1 class="text-2xl font-bold">TechEdX</h1>
+            <div class="mt-4">
+                <h2 class="text-lg">محمد أحمد</h2>
+                <p class="text-sm text-gray-300">طالب - السنة الثالثة</p>
+            </div>
+        </div>
+        
+        <h3 class="px-4 text-gray-400 mb-2">القائمة الرئيسية</h3>
+        <div class="menu-items">
+            <a href="#" class="flex items-center px-4 py-3 text-white active-menu-item">
+                <i class="fas fa-chart-bar ml-2"></i>
+                <span>لوحة التحكم</span>
+            </a>
+            <a href="#" class="flex items-center px-4 py-3 text-white hover:bg-gray-700">
+                <i class="fas fa-book ml-2"></i>
+                <span>الدورات</span>
+            </a>
+            <a href="#" class="flex items-center px-4 py-3 text-white hover:bg-gray-700">
+                <i class="fas fa-vr-cardboard ml-2"></i>
+                <span>المعامل الافتراضية</span>
+            </a>
+            <a href="#" class="flex items-center px-4 py-3 text-white hover:bg-gray-700">
+                <i class="fas fa-robot ml-2"></i>
+                <span>المساعد الذكي</span>
+            </a>
+            <a href="#" class="flex items-center px-4 py-3 text-white hover:bg-gray-700">
+                <i class="fas fa-clipboard-list ml-2"></i>
+                <span>الاختبارات</span>
+            </a>
+        </div>
+        
+        <h3 class="px-4 text-gray-400 mt-6 mb-2">الإعدادات</h3>
+        <div class="menu-items">
+            <a href="#" class="flex items-center px-4 py-3 text-white hover:bg-gray-700">
+                <i class="fas fa-user ml-2"></i>
+                <span>الملف الشخصي</span>
+            </a>
+            <a href="#" class="flex items-center px-4 py-3 text-white hover:bg-gray-700">
+                <i class="fas fa-cog ml-2"></i>
+                <span>الإعدادات</span>
+            </a>
+            <a href="#" class="flex items-center px-4 py-3 text-white hover:bg-gray-700">
+                <i class="fas fa-question-circle ml-2"></i>
+                <span>المساعدة</span>
+            </a>
+            <a href="#" class="flex items-center px-4 py-3 text-white hover:bg-gray-700">
+                <i class="fas fa-sign-out-alt ml-2"></i>
+                <span>تسجيل الخروج</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content p-6">
+        <!-- Welcome Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <div class="lg:col-span-2">
+                <div class="card p-6">
+                    <h2 class="text-2xl font-bold mb-2">مرحباً، محمد!</h2>
+                    <p class="text-gray-600 mb-4">استكمل رحلة التعلم الخاصة بك، لديك مهام معلقة اليوم.</p>
+                    <a href="#" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md inline-block">استكمال التعلم</a>
+                </div>
+            </div>
+            <div>
+                <div class="card p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-bold">طالب متفوق 🌟</h3>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-blue-600">24</div>
+                            <div class="text-sm text-gray-500">دورات مكتملة</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-blue-600">85%</div>
+                            <div class="text-sm text-gray-500">ساعة تعلم</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-blue-600">92%</div>
+                            <div class="text-sm text-gray-500">معدل الإنجاز</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Chart & AI Recommendations -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <div>
+                <div class="card p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-lg font-bold">تقدمك الأسبوعي</h3>
+                        <a href="#" class="text-blue-500 text-sm">عرض التقرير الكامل</a>
+                    </div>
+                    <div class="flex items-end justify-between h-48 mb-4">
+                        <div class="flex flex-col items-center">
+                            <div class="chart-bar h-1/3"></div>
+                            <div class="text-xs mt-2">1/4</div>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="chart-bar h-3/5"></div>
+                            <div class="text-xs mt-2">3/4</div>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="chart-bar h-2/5"></div>
+                            <div class="text-xs mt-2">5/4</div>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="chart-bar h-4/5"></div>
+                            <div class="text-xs mt-2">7/4</div>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="chart-bar h-2/3"></div>
+                            <div class="text-xs mt-2">9/4</div>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="chart-bar h-2/5"></div>
+                            <div class="text-xs mt-2">11/4</div>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="chart-bar h-3/4"></div>
+                            <div class="text-xs mt-2">13/4</div>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="chart-bar h-1/2"></div>
+                            <div class="text-xs mt-2">15/4</div>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="chart-bar h-9/10"></div>
+                            <div class="text-xs mt-2">17/4</div>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="chart-bar h-7/10"></div>
+                            <div class="text-xs mt-2">19/4</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="card p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-bold">توصيات الذكاء الاصطناعي</h3>
+                        <a href="#" class="text-blue-500 text-sm">عرض الكل</a>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="ai-recommendation p-3 rounded">
+                            <h4 class="font-bold text-md">تحسين مهارات البرمجة</h4>
+                            <p class="text-gray-600 text-sm">ننصحك بالتركيز على تعلم هياكل البيانات المتقدمة لتحسين قدراتك البرمجية.</p>
+                        </div>
+                        <div class="ai-recommendation p-3 rounded">
+                            <h4 class="font-bold text-md">استكمال دورة الذكاء الاصطناعي</h4>
+                            <p class="text-gray-600 text-sm">أنت متأخر عن الجدول الزمني، ننصحك بإكمال الوحدة 3 من دورة أساسيات الذكاء الاصطناعي.</p>
+                        </div>
+                        <div class="ai-recommendation p-3 rounded">
+                            <h4 class="font-bold text-md">تجربة معمل الإلكترونيات الافتراضي</h4>
+                            <p class="text-gray-600 text-sm">بناءً على اهتماماتك، نقترح عليك تجربة معمل الدوائر الإلكترونية الافتراضي الجديد.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Courses & Exams -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <div>
+                <div class="card p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-bold">الدورات الجارية</h3>
+                        <a href="#" class="text-blue-500 text-sm">عرض جميع الدورات</a>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="course-card bg-gray-50 p-4 rounded-md">
+                            <div class="flex justify-between">
+                                <h4 class="font-bold">أساسيات الذكاء الاصطناعي</h4>
+                                <span class="badge-success">75% مكتمل</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mt-2">استمر في دراسة الوحدة 3: التعلم العميق والشبكات العصبية</p>
+                            <div class="mt-3">
+                                <div class="progress-bar">
+                                    <div class="progress-bar-fill" style="width: 75%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="course-card bg-gray-50 p-4 rounded-md">
+                            <div class="flex justify-between">
+                                <h4 class="font-bold">تطوير تطبيقات الويب المتقدمة</h4>
+                                <span class="badge-success">45% مكتمل</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mt-2">المحاضرة القادمة: إطارات عمل JavaScript الحديثة</p>
+                            <div class="mt-3">
+                                <div class="progress-bar">
+                                    <div class="progress-bar-fill" style="width: 45%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="course-card bg-gray-50 p-4 rounded-md">
+                            <div class="flex justify-between">
+                                <h4 class="font-bold">أمن المعلومات والشبكات</h4>
+                                <span class="badge-success">90% مكتمل</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mt-2">اكمل الوحدة الأخيرة: الاختراق الأخلاقي</p>
+                            <div class="mt-3">
+                                <div class="progress-bar">
+                                    <div class="progress-bar-fill" style="width: 90%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="card p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-bold">الاختبارات القادمة</h3>
+                        <a href="#" class="text-blue-500 text-sm">عرض جميع الاختبارات</a>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="exam-card bg-gray-50 p-4 rounded-md">
+                            <div class="flex justify-between">
+                                <h4 class="font-bold">اختبار الذكاء الاصطناعي المتوسط</h4>
+                                <span class="text-red-500 text-sm">غداً، 10:00 ص</span>
+                            </div>
+                            <div class="flex mt-2 text-gray-600 text-sm">
+                                <div class="ml-4"><i class="fas fa-clock ml-1"></i> 60 دقيقة</div>
+                                <div><i class="fas fa-question ml-1"></i> 30 سؤال</div>
+                            </div>
+                            <button class="mt-3 bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-sm">استعد للاختبار</button>
+                        </div>
+                        <div class="exam-card bg-gray-50 p-4 rounded-md">
+                            <div class="flex justify-between">
+                                <h4 class="font-bold">تقييم تطوير الويب</h4>
+                                <span class="text-gray-500 text-sm">بعد 3 أيام</span>
+                            </div>
+                            <div class="flex mt-2 text-gray-600 text-sm">
+                                <div class="ml-4"><i class="fas fa-clock ml-1"></i> 90 دقيقة</div>
+                                <div><i class="fas fa-question ml-1"></i> 45 سؤال</div>
+                            </div>
+                            <button class="mt-3 bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded-md text-sm">مراجعة المواد</button>
+                        </div>
+                        <div class="exam-card bg-gray-50 p-4 rounded-md">
+                            <div class="flex justify-between">
+                                <h4 class="font-bold">اختبار أمن المعلومات النهائي</h4>
+                                <span class="text-gray-500 text-sm">بعد أسبوع</span>
+                            </div>
+                            <div class="flex mt-2 text-gray-600 text-sm">
+                                <div class="ml-4"><i class="fas fa-clock ml-1"></i> 120 دقيقة</div>
+                                <div><i class="fas fa-question ml-1"></i> 60 سؤال</div>
+                            </div>
+                            <button class="mt-3 bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded-md text-sm">مراجعة المواد</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Virtual Labs -->
+        <div class="card p-6 mb-8">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-bold">أحدث النشاطات في المعامل الافتراضية</h3>
+                <a href="#" class="text-blue-500 text-sm">عرض جميع المعامل</a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="lab-card bg-gray-50 p-4 rounded-md">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-vr-cardboard text-blue-500 ml-2 text-lg"></i>
+                        <h4 class="font-bold">معمل الدوائر الإلكترونية</h4>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-3">آخر نشاط: تصميم وتنفيذ دائرة تحكم في محرك DC</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-green-500 text-sm"><i class="fas fa-check-circle ml-1"></i> تم الانتهاء</span>
+                        <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-sm">دخول المعمل</button>
+                    </div>
+                </div>
+                <div class="lab-card bg-gray-50 p-4 rounded-md">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-atom text-blue-500 ml-2 text-lg"></i>
+                        <h4 class="font-bold">معمل الفيزياء الافتراضي</h4>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-3">آخر نشاط: تجربة البندول البسيط وقياس الجاذبية</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-yellow-500 text-sm"><i class="fas fa-exclamation-circle ml-1"></i> قيد التقدم</span>
+                        <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-sm">استكمال</button>
+                    </div>
+                </div>
+                <div class="lab-card bg-gray-50 p-4 rounded-md">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-robot text-blue-500 ml-2 text-lg"></i>
+                        <h4 class="font-bold">معمل الروبوتات</h4>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-3">تجربة جديدة: برمجة روبوت متتبع خط باستخدام الذكاء الاصطناعي</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-blue-500 text-sm"><i class="fas fa-hourglass-start ml-1"></i> جديد</span>
+                        <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-sm">ابدأ الآن</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Achievements -->
+        <div class="card p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-bold">إنجازاتك الأخيرة</h3>
+                <a href="#" class="text-blue-500 text-sm">عرض جميع الإنجازات</a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="text-center p-4 rounded-md bg-gray-50">
+                    <i class="fas fa-trophy text-yellow-500 text-3xl mb-2"></i>
+                    <h4 class="font-bold">مستكشف الذكاء الاصطناعي</h4>
+                    <p class="text-gray-600 text-sm">أكملت 5 دورات في مجال الذكاء الاصطناعي</p>
+                </div>
+                <div class="text-center p-4 rounded-md bg-gray-50">
+                    <i class="fas fa-flask text-purple-500 text-3xl mb-2"></i>
+                    <h4 class="font-bold">عالم المعامل</h4>
+                    <p class="text-gray-600 text-sm">أكملت 10 تجارب في المعامل الافتراضية</p>
+                </div>
+                <div class="text-center p-4 rounded-md bg-gray-50">
+                    <i class="fas fa-code text-blue-500 text-3xl mb-2"></i>
+                    <h4 class="font-bold">مبرمج متقدم</h4>
+                    <p class="text-gray-600 text-sm">حصلت على درجة ممتازة في 3 اختبارات برمجة متتالية</p>
+                </div>
+                <div class="text-center p-4 rounded-md bg-gray-50">
+                    <i class="fas fa-fire text-red-500 text-3xl mb-2"></i>
+                    <h4 class="font-bold">متعلم مثابر</h4>
+                    <p class="text-gray-600 text-sm">قمت بالدراسة لمدة 7 أيام متتالية</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-8 text-center text-gray-500 text-sm">
+            <p>جميع الحقوق محفوظة © 2024 - منصة TechEdX للتعليم التقني</p>
+        </div>
+    </div>
+</body>
+</html>

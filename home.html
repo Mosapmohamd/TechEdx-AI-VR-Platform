@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechEdX - منصة تعليمية بالذكاء الاصطناعي والواقع الافتراضي</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary-dark-blue: #1e3a5f;
+            --primary-green: #10b981;
+            --light-gray: #f3f4f6;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #ffffff;
+        }
+        
+        .main-bg {
+            background-color: var(--primary-dark-blue);
+        }
+        
+        .accent-bg {
+            background-color: var(--primary-green);
+        }
+        
+        .accent-text {
+            color: var(--primary-green);
+        }
+        
+        .hero-section {
+            background: linear-gradient(to left, rgba(16, 185, 129, 0.1), rgba(30, 58, 95, 0.8)), url('https://img.freepik.com/free-photo/university-student-using-advanced-technology_23-2149169744.jpg?w=1380&t=st=1702221228~exp=1702221828~hmac=54eb3b72bbcf7fd2e13d0ee08a86c7bedd9d359df1a86dc4a7f29ee4c0498866');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .feature-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .sidebar {
+            background-color: var(--primary-dark-blue);
+            color: white;
+            width: 260px;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-menu-item:hover, .sidebar-menu-item.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-right: 4px solid var(--primary-green);
+        }
+        
+        .sidebar-menu-item i {
+            margin-left: 10px;
+            width: 24px;
+            text-align: center;
+        }
+        
+        .content-section {
+            margin-right: 260px;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 0;
+                padding: 0;
+            }
+            .content-section {
+                margin-right: 0;
+            }
+            .mobile-menu-button {
+                display: block !important;
+            }
+        }
+        
+        .mobile-menu-button {
+            display: none;
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+        }
+        
+        /* Smooth scrolling for PDF export */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-button bg-white p-2 rounded shadow" onclick="toggleSidebar()">
+        <i class="fas fa-bars text-gray-800 text-xl"></i>
+    </button>
+
+    <!-- Sidebar Navigation -->
+    <div id="sidebar" class="sidebar shadow-lg z-20">
+        <div class="p-4 border-b border-gray-700">
+            <h1 class="text-xl font-bold text-white flex items-center">
+                <i class="fas fa-graduation-cap ml-2 text-green-400"></i>
+                TechEdX
+            </h1>
+        </div>
+        
+        <div class="py-2">
+            <a href="تسجيل الدخول.html" class="sidebar-menu-item">
+                <i class="fas fa-sign-in-alt"></i>
+                <span>تسجيل الدخول / إنشاء حساب</span>
+            </a>
+            
+            <a href="#" class="sidebar-menu-item active">
+                <i class="fas fa-home"></i>
+                <span>الصفحة الرئيسية</span>
+            </a>
+            <a href="الدورات التعليمية.html" class="sidebar-menu-item">
+                <i class="fas fa-book"></i>
+                <span>الدورات</span>
+            </a>
+            <a href="المعامل الافتراضية.html" class="sidebar-menu-item">
+                <i class="fas fa-vr-cardboard"></i>
+                <span>المعامل الافتراضية</span>
+            </a>
+            <a href="المساعد الذكي.html" class="sidebar-menu-item">
+                <i class="fas fa-robot"></i>
+                <span>المساعد الذكي</span>
+            </a>
+            <a href="الاختبار.html" class="sidebar-menu-item">
+                <i class="fas fa-clipboard-list"></i>
+                <span>الاختبارات</span>
+            </a>
+        </div>
+        
+        <div class="border-t border-gray-700 pt-2 mt-2">
+            <div class="px-4 py-2 text-gray-400 text-sm">الإعدادات</div>
+            <a href="profile.html" class="sidebar-menu-item">
+                <i class="fas fa-user"></i>
+                <span>الملف الشخصي</span>
+            </a>
+            <a href="setting.html" class="sidebar-menu-item">
+                <i class="fas fa-cog"></i>
+                <span>الإعدادات</span>
+            </a>
+            <a href="help.html" class="sidebar-menu-item">
+                <i class="fas fa-question-circle"></i>
+                <span>المساعدة</span>
+            </a>
+            <a href="تواصل معنا.html" class="sidebar-menu-item">
+                <i class="fas fa-envelope"></i>
+                <span>تواصل معنا</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content-section">
+        <!-- Hero Section -->
+        <section class="hero-section py-16 px-4 text-white">
+            <div class="container mx-auto">
+                <div class="md:w-2/3">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4">ارتقِ بتعليمك مع الذكاء الاصطناعي والواقع الافتراضي</h1>
+                    <p class="text-xl mb-8">منصة TechEdX تجمع بين قوة الذكاء الاصطناعي وتقنيات الواقع الافتراضي لتقدم تجربة تعليمية فريدة ومخصصة لطلاب الجامعات التقنية.</p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="تسجيل الدخول.html" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg text-center transition duration-300 ease-in-out">
+                            ابدأ الآن مجاناً
+                        </a>
+                        <a href="#features" class="bg-transparent border-2 border-white text-white font-bold py-3 px-6 rounded-lg text-center hover:bg-white hover:text-gray-800 transition duration-300 ease-in-out">
+                            اكتشف المزيد
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="py-16 px-4 bg-gray-50">
+            <div class="container mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-2">مميزات المنصة</h2>
+                <p class="text-center text-gray-600 mb-12">تتميز منصة TechEdX بمجموعة من الخصائص الفريدة التي تساعد الطلاب على تحقيق أقصى استفادة من رحلتهم التعليمية</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Feature 1 -->
+                    <div class="feature-card bg-white p-6 rounded-lg shadow-md">
+                        <div class="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center mb-4">
+                            <i class="fas fa-robot text-2xl text-green-500"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">مساعد ذكي شخصي</h3>
+                        <p class="text-gray-600">مساعد مدعوم بالذكاء الاصطناعي يحلل أداءك ويقترح مسارات تعليمية مخصصة لتحسين مهاراتك</p>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="feature-card bg-white p-6 rounded-lg shadow-md">
+                        <div class="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center mb-4">
+                            <i class="fas fa-vr-cardboard text-2xl text-blue-500"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">معامل واقع افتراضي</h3>
+                        <p class="text-gray-600">تجارب معملية تفاعلية بتقنية الواقع الافتراضي تتيح لك ممارسة ما تتعلمه في بيئة آمنة وغنية</p>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="feature-card bg-white p-6 rounded-lg shadow-md">
+                        <div class="w-14 h-14 rounded-full bg-purple-100 flex items-center justify-center mb-4">
+                            <i class="fas fa-book text-2xl text-purple-500"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">محتوى تعليمي متخصص</h3>
+                        <p class="text-gray-600">دورات مصممة خصيصاً لتلبية احتياجات طلاب الجامعات التقنية في مصر ومتوافقة مع المناهج الدراسية</p>
+                    </div>
+
+                    <!-- Feature 4 -->
+                    <div class="feature-card bg-white p-6 rounded-lg shadow-md">
+                        <div class="w-14 h-14 rounded-full bg-yellow-100 flex items-center justify-center mb-4">
+                            <i class="fas fa-users text-2xl text-yellow-500"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">تواصل مع الخبراء</h3>
+                        <p class="text-gray-600">فرصة للتواصل مع خبراء الصناعة والحصول على إرشادات وتوجيهات قيمة لمستقبلك المهني</p>
+                    </div>
+
+                    <!-- Feature 5 -->
+                    <div class="feature-card bg-white p-6 rounded-lg shadow-md">
+                        <div class="w-14 h-14 rounded-full bg-red-100 flex items-center justify-center mb-4">
+                            <i class="fas fa-chart-line text-2xl text-red-500"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">تحليل الأداء والتقدم</h3>
+                        <p class="text-gray-600">لوحة تحكم تحليلية تظهر تقدمك في التعلم ونقاط القوة والضعف لديك لتحسين مستواك باستمرار</p>
+                    </div>
+
+                    <!-- Feature 6 -->
+                    <div class="feature-card bg-white p-6 rounded-lg shadow-md">
+                        <div class="w-14 h-14 rounded-full bg-indigo-100 flex items-center justify-center mb-4">
+                            <i class="fas fa-mobile-alt text-2xl text-indigo-500"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">التعلم في أي وقت ومكان</h3>
+                        <p class="text-gray-600">منصة متاحة على الويب والهاتف المحمول للوصول إلى المحتوى التعليمي في أي وقت ومن أي مكان</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Available Courses Preview -->
+        <section class="py-16 px-4">
+            <div class="container mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-2">دورات مميزة</h2>
+                <p class="text-center text-gray-600 mb-12">تعرف على بعض الدورات المميزة المتاحة على منصتنا</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Course 1 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="h-48 bg-gray-300 relative">
+                            <img src="https://img.freepik.com/free-vector/machine-learning-concept-illustration_114360-9887.jpg?w=996&t=st=1702221678~exp=1702222278~hmac=0dea0aca3b3e3694304d9173a1e0f9337ff5c15b911df8f4e3c05ca8b1e9eca9" alt="أساسيات الذكاء الاصطناعي" class="w-full h-full object-cover">
+                            <span class="absolute top-4 right-4 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">الأكثر شعبية</span>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm text-gray-500">تقنية • ذكاء اصطناعي</span>
+                                <div class="flex items-center">
+                                    <i class="fas fa-star text-yellow-400 ml-1"></i>
+                                    <span class="text-sm text-gray-700">4.9</span>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">أساسيات الذكاء الاصطناعي</h3>
+                            <p class="text-gray-600 mb-4">تعلم المفاهيم الأساسية للذكاء الاصطناعي وتطبيقاته العملية والنظرية</p>
+                            <a href="techedx_courses.html" class="block text-center bg-blue-900 text-white py-2 px-4 rounded-lg hover:bg-blue-800 transition duration-300">عرض التفاصيل</a>
+                        </div>
+                    </div>
+
+                    <!-- Course 2 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="h-48 bg-gray-300">
+                            <img src="https://img.freepik.com/free-photo/programming-background-with-person-working-with-codes-computer_23-2150010125.jpg?w=996&t=st=1702221714~exp=1702222314~hmac=b2d72c6f6f53f62857702bd02f113ed38b79c52d4bc5d9e2a27c9edbd6e22ec1" alt="برمجة تطبيقات الويب" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm text-gray-500">برمجة • تطوير الويب</span>
+                                <div class="flex items-center">
+                                    <i class="fas fa-star text-yellow-400 ml-1"></i>
+                                    <span class="text-sm text-gray-700">4.7</span>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">برمجة تطبيقات الويب</h3>
+                            <p class="text-gray-600 mb-4">تعلم كيفية تطوير تطبيقات ويب متكاملة باستخدام أحدث التقنيات والأدوات</p>
+                            <a href="techedx_courses.html" class="block text-center bg-blue-900 text-white py-2 px-4 rounded-lg hover:bg-blue-800 transition duration-300">عرض التفاصيل</a>
+                        </div>
+                    </div>
+
+                    <!-- Course 3 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="h-48 bg-gray-300">
+                            <img src="https://img.freepik.com/free-photo/electronic-component-with-microchips-processor-motherboard-with-tech-elements-generative-ai_118047-4910.jpg?w=996&t=st=1702221837~exp=1702222437~hmac=a6f5b10b4bc03c9be6c718c4cebc297e02ba5f59d9f4c56bd26a0be40af6ac2e" alt="تصميم الدوائر الإلكترونية" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm text-gray-500">إلكترونيات • هندسة</span>
+                                <div class="flex items-center">
+                                    <i class="fas fa-star text-yellow-400 ml-1"></i>
+                                    <span class="text-sm text-gray-700">4.8</span>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">تصميم الدوائر الإلكترونية</h3>
+                            <p class="text-gray-600 mb-4">تعلم تصميم وتحليل الدوائر الإلكترونية من خلال مختبرات افتراضية متطورة</p>
+                            <a href="techedx_courses.html" class="block text-center bg-blue-900 text-white py-2 px-4 rounded-lg hover:bg-blue-800 transition duration-300">عرض التفاصيل</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-10">
+                    <a href="techedx_courses.html" class="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition duration-300 ease-in-out">
+                        عرض جميع الدورات <i class="fas fa-arrow-left mr-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Virtual Labs Section -->
+        <section class="py-16 px-4 bg-gray-50">
+            <div class="container mx-auto">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 md:pl-8 order-2 md:order-1">
+                        <h2 class="text-3xl font-bold mb-4">معامل واقع افتراضي متطورة</h2>
+                        <p class="text-gray-600 mb-6">استكشف العالم التكنولوجي من خلال معامل الواقع الافتراضي التفاعلية الخاصة بنا، حيث يمكنك تطبيق المفاهيم النظرية في بيئة آمنة وغنية بالتجارب العملية.</p>
+                        <ul class="mb-8">
+                            <li class="flex items-center mb-3">
+                                <i class="fas fa-check-circle text-green-500 ml-2"></i>
+                                <span>معامل إلكترونية لتصميم وتجربة الدوائر المختلفة</span>
+                            </li>
+                            <li class="flex items-center mb-3">
+                                <i class="fas fa-check-circle text-green-500 ml-2"></i>
+                                <span>معامل فيزيائية لإجراء التجارب والقياسات المختلفة</span>
+                            </li>
+                            <li class="flex items-center mb-3">
+                                <i class="fas fa-check-circle text-green-500 ml-2"></i>
+                                <span>معامل برمجية لتطوير المشاريع وحل المشكلات التقنية</span>
+                            </li>
+                        </ul>
+                        <a href="techedx_virtual_labs.html" class="inline-block bg-blue-900 hover:bg-blue-800 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out">
+                            استكشف المعامل الافتراضية
+                        </a>
+                    </div>
+                    <div class="md:w-1/2 mb-8 md:mb-0 order-1 md:order-2">
+                        <img src="https://img.freepik.com/free-photo/man-wearing-vr-glasses_1077-67.jpg?w=996&t=st=1702222015~exp=1702222615~hmac=f8ad28d7a3aec3a8cc1e5fa90b84fc89c4f8693a3e7c5e77adb5e58d27f40431" alt="معامل الواقع الافتراضي" class="rounded-lg shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Assistant Section -->
+        <section class="py-16 px-4">
+            <div class="container mx-auto">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 mb-8 md:mb-0">
+                        <img src="https://img.freepik.com/free-vector/artificial-intelligence-concept-illustration_114360-9161.jpg?w=740&t=st=1702222118~exp=1702222718~hmac=3cc4d4d21918c0d0fe9d31da89123a0d97a25d7df0d4e3d1e2a91fb33fad8b5b" alt="المساعد الذكي" class="rounded-lg shadow-lg">
+                    </div>
+                    <div class="md:w-1/2 md:pr-8">
+                        <h2 class="text-3xl font-bold mb-4">المساعد الذكي الشخصي</h2>
+                        <p class="text-gray-600 mb-6">يعمل المساعد الذكي المدعوم بالذكاء الاصطناعي على تحليل أداءك وتقديم توصيات مخصصة تساعدك في التعلم بشكل أكثر فعالية.</p>
+                        <ul class="mb-8">
+                            <li class="flex items-center mb-3">
+                                <i class="fas fa-check-circle text-green-500 ml-2"></i>
+                                <span>تحليل مستمر لأدائك وتقدمك في المقررات</span>
+                            </li>
+                            <li class="flex items-center mb-3">
+                                <i class="fas fa-check-circle text-green-500 ml-2"></i>
+                                <span>توصيات مخصصة للدورات والمواد التعليمية</span>
+                            </li>
+                            <li class="flex items-center mb-3">
+                                <i class="fas fa-check-circle text-green-500 ml-2"></i>
+                                <span>مساعدة فورية في حل المشكلات والإجابة على الأسئلة</span>
+                            </li>
+                        </ul>
+                        <a href="techedx_smart_assistant.html" class="inline-block bg-blue-900 hover:bg-blue-800 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out">
+                            جرب المساعد الذكي
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="py-16 px-4 bg-gray-50">
+            <div class="container mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-2">آراء طلابنا</h2>
+                <p class="text-center text-gray-600 mb-12">اطلع على تجارب بعض طلابنا مع منصة TechEdX</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-500 font-bold ml-3">
+                                أ
+                            </div>
+                            <div>
+                                <h4 class="font-bold">أحمد محمود</h4>
+                                <p class="text-gray-500 text-sm">طالب هندسة، السنة الثالثة</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600">"المعامل الافتراضية ساعدتني كثيراً في فهم المفاهيم المعقدة في الإلكترونيات. استطعت تجربة تصميم دوائر متكاملة دون خوف من إتلاف المعدات!"</p>
+                        <div class="mt-4 flex">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 2 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center text-purple-500 font-bold ml-3">
+                                س
+                            </div>
+                            <div>
+                                <h4 class="font-bold">سارة أحمد</h4>
+                                <p class="text-gray-500 text-sm">طالبة علوم حاسب، السنة الرابعة</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600">"المساعد الذكي على المنصة غير طريقة تعلمي بشكل كامل. يقدم لي توصيات مناسبة لمستواي ويساعدني في التركيز على نقاط ضعفي في البرمجة."</p>
+                        <div class="mt-4 flex">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star-half-alt text-yellow-400"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 3 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-500 font-bold ml-3">
+                                ي
+                            </div>
+                            <div>
+                                <h4 class="font-bold">يوسف علي</h4>
+                                <p class="text-gray-500 text-sm">طالب ذكاء اصطناعي، السنة الثانية</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600">"المحتوى التعليمي المتخصص على المنصة يتوافق تماماً مع المناهج الدراسية، وأسلوب العرض التفاعلي ساعدني في استيعاب المفاهيم بشكل أسرع."</p>
+                        <div class="mt-4 flex">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Us / Footer -->
+        <footer class="main-bg py-12 px-4 text-white">
+            <div class="container mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <!-- About Platform -->
+                    <div class="md:col-span-1">
+                        <h4 class="text-xl font-bold mb-4">TechEdX</h4>
+                        <p class="mb-4">منصة تعليمية متخصصة تجمع بين تقنيات الذكاء الاصطناعي والواقع الافتراضي لتقديم تجربة تعليمية فريدة لطلاب الجامعات التقنية.</p>
+                        <div class="flex mt-4">
+                            <a href="#" class="ml-3 text-gray-300 hover:text-white">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="ml-3 text-gray-300 hover:text-white">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="ml-3 text-gray-300 hover:text-white">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="ml-3 text-gray-300 hover:text-white">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Links -->
+                    <div class="md:col-span-1">
+                        <h4 class="text-xl font-bold mb-4">روابط سريعة</h4>
+                        <ul>
+                            <li class="mb-2">
+                                <a href="techedx_courses.html" class="text-gray-300 hover:text-white">الدورات التعليمية</a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="techedx_virtual_labs.html" class="text-gray-300 hover:text-white">المعامل الافتراضية</a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="techedx_smart_assistant.html" class="text-gray-300 hover:text-white">المساعد الذكي</a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="techedx_exams.html" class="text-gray-300 hover:text-white">الاختبارات</a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="techedx_contact_us.html" class="text-gray-300 hover:text-white">تواصل معنا</a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Support -->
+                    <div class="md:col-span-1">
+                        <h4 class="text-xl font-bold mb-4">الدعم الفني</h4>
+                        <ul>
+                            <li class="mb-2">
+                                <a href="techedx_help.html" class="text-gray-300 hover:text-white">الأسئلة الشائعة</a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="techedx_help.html" class="text-gray-300 hover:text-white">كيفية استخدام المنصة</a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="techedx_help.html" class="text-gray-300 hover:text-white">سياسة الخصوصية</a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="techedx_help.html" class="text-gray-300 hover:text-white">شروط الاستخدام</a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Contact Us -->
+                    <div class="md:col-span-1">
+                        <h4 class="text-xl font-bold mb-4">تواصل معنا</h4>
+                        <ul>
+                            <li class="mb-3 flex items-start">
+                                <i class="fas fa-map-marker-alt mt-1 ml-2"></i>
+                                <span>جمهورية مصر العربية، القاهرة، المعادي</span>
+                            </li>
+                            <li class="mb-3 flex items-start">
+                                <i class="fas fa-envelope mt-1 ml-2"></i>
+                                <span>info@techedx.edu</span>
+                            </li>
+                            <li class="mb-3 flex items-start">
+                                <i class="fas fa-phone-alt mt-1 ml-2"></i>
+                                <a href="https://wa.me/+201013089663">مصعب محمد عبد الغني: 01013089663</a>
+                            </li>
+                            <li class="mb-3 flex items-start">
+                                <i class="fas fa-phone-alt mt-1 ml-2"></i>
+                                <a href="https://wa.me/01551079862">محمد عمر سلطان: 01551079862</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                    <p>&copy; 2023 TechEdX - كل الحقوق محفوظة</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar.style.width === '0px' || sidebar.style.width === '') {
+                sidebar.style.width = '260px';
+            } else {
+                sidebar.style.width = '0px';
+            }
+        }
+    </script>
+</body>
+</html>

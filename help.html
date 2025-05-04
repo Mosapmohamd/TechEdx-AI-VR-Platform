@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المساعدة - منصة TechEdX</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-dark-blue: #1e3a5f;
+            --primary-green: #3cb371;
+            --light-bg: #f8f9fa;
+        }
+        body {
+            font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-bg);
+        }
+        .primary-bg {
+            background-color: var(--primary-dark-blue);
+        }
+        .primary-text {
+            color: var(--primary-dark-blue);
+        }
+        .accent-bg {
+            background-color: var(--primary-green);
+        }
+        .accent-text {
+            color: var(--primary-green);
+        }
+        .sidebar {
+            background-color: var(--primary-dark-blue);
+            width: 240px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            right: 0;
+        }
+        .content-section {
+            margin-right: 240px;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .faq-item {
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .faq-question {
+            cursor: pointer;
+        }
+        .faq-answer {
+            display: none;
+        }
+        .faq-answer.show {
+            display: block;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .content-section {
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Sidebar -->
+    <div class="sidebar text-white p-4">
+        <div class="logo text-center p-4">
+            <h1 class="text-2xl font-bold">TechEdX</h1>
+        </div>
+        
+        <div class="menu mt-8">
+            <div class="menu-title text-gray-400 text-xs mb-2">القائمة الرئيسية</div>
+            
+            <div class="menu-item py-2 px-4 rounded hover:bg-gray-700 flex items-center">
+                <i class="fas fa-chart-line ml-2"></i>
+                <span>لوحة التحكم</span>
+            </div>
+            
+            <div class="menu-item py-2 px-4 rounded hover:bg-gray-700 flex items-center">
+                <i class="fas fa-book ml-2"></i>
+                <span>الدورات</span>
+            </div>
+            
+            <div class="menu-item py-2 px-4 rounded hover:bg-gray-700 flex items-center">
+                <i class="fas fa-vr-cardboard ml-2"></i>
+                <span>المعامل الافتراضية</span>
+            </div>
+            
+            <div class="menu-item py-2 px-4 rounded hover:bg-gray-700 flex items-center">
+                <i class="fas fa-robot ml-2"></i>
+                <span>المساعد الذكي</span>
+            </div>
+            
+            <div class="menu-item py-2 px-4 rounded hover:bg-gray-700 flex items-center">
+                <i class="fas fa-clipboard-list ml-2"></i>
+                <span>الاختبارات</span>
+            </div>
+            
+            <div class="menu-title text-gray-400 text-xs mt-6 mb-2">الإعدادات</div>
+            
+            <div class="menu-item py-2 px-4 rounded hover:bg-gray-700 flex items-center">
+                <i class="fas fa-user ml-2"></i>
+                <span>الملف الشخصي</span>
+            </div>
+            
+            <div class="menu-item py-2 px-4 rounded hover:bg-gray-700 flex items-center">
+                <i class="fas fa-cog ml-2"></i>
+                <span>الإعدادات</span>
+            </div>
+            
+            <div class="menu-item py-2 px-4 rounded bg-gray-700 flex items-center">
+                <i class="fas fa-question-circle ml-2"></i>
+                <span>المساعدة</span>
+            </div>
+            
+            <div class="menu-item py-2 px-4 rounded hover:bg-gray-700 flex items-center">
+                <i class="fas fa-sign-out-alt ml-2"></i>
+                <span>تسجيل الخروج</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content-section p-8">
+        <div class="header mb-8">
+            <h1 class="text-3xl font-bold primary-text">مركز المساعدة</h1>
+            <p class="text-gray-600 mt-2">نحن هنا لمساعدتك في استخدام منصة TechEdX بأفضل طريقة ممكنة</p>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tab-nav border-b border-gray-200 mb-6">
+            <div class="flex">
+                <button class="tab-btn py-2 px-4 mr-4 font-semibold border-b-2 border-green-500 primary-text" data-tab="faq">
+                    <i class="fas fa-question-circle ml-1"></i> الأسئلة الشائعة
+                </button>
+                <button class="tab-btn py-2 px-4 mr-4 font-semibold text-gray-500 hover:text-gray-700" data-tab="guides">
+                    <i class="fas fa-book-open ml-1"></i> أدلة الاستخدام
+                </button>
+                <button class="tab-btn py-2 px-4 font-semibold text-gray-500 hover:text-gray-700" data-tab="support">
+                    <i class="fas fa-headset ml-1"></i> الدعم الفني
+                </button>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div id="faq" class="tab-content active">
+            <h2 class="text-2xl font-semibold primary-text mb-6">الأسئلة الشائعة</h2>
+            
+            <div class="faq-list">
+                <div class="faq-item p-4 rounded-lg bg-white shadow-sm mb-4">
+                    <div class="faq-question flex justify-between items-center primary-text font-semibold">
+                        <span>ما هي منصة TechEdX؟</span>
+                        <i class="fas fa-chevron-down text-gray-500"></i>
+                    </div>
+                    <div class="faq-answer mt-4 text-gray-700">
+                        <p>منصة TechEdX هي منصة تعليمية متخصصة تجمع بين قوة الذكاء الاصطناعي وتقنيات الواقع الافتراضي لتقدم تجربة تعليمية فريدة ومخصصة لطلاب الجامعات التقنية. تتيح المنصة للطلاب الوصول إلى محتوى تعليمي عالي الجودة، والتفاعل مع معامل افتراضية، والحصول على توجيه شخصي من خلال مساعد ذكي.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item p-4 rounded-lg bg-white shadow-sm mb-4">
+                    <div class="faq-question flex justify-between items-center primary-text font-semibold">
+                        <span>كيف يمكنني التسجيل في المنصة؟</span>
+                        <i class="fas fa-chevron-down text-gray-500"></i>
+                    </div>
+                    <div class="faq-answer mt-4 text-gray-700">
+                        <p>يمكنك التسجيل في منصة TechEdX باتباع الخطوات التالية:</p>
+                        <ol class="list-decimal mr-6 mt-2 space-y-1">
+                            <li>انتقل إلى الصفحة الرئيسية للمنصة واضغط على زر "إنشاء حساب"</li>
+                            <li>أدخل بياناتك الشخصية المطلوبة (الاسم، البريد الإلكتروني، كلمة المرور)</li>
+                            <li>اختر تخصصك الدراسي والمستوى الأكاديمي</li>
+                            <li>اقرأ شروط الاستخدام وسياسة الخصوصية والموافقة عليها</li>
+                            <li>انقر على "تسجيل" لإنشاء حسابك</li>
+                            <li>تحقق من بريدك الإلكتروني لتأكيد حسابك</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="faq-item p-4 rounded-lg bg-white shadow-sm mb-4">
+                    <div class="faq-question flex justify-between items-center primary-text font-semibold">
+                        <span>كيف يعمل المساعد الذكي في المنصة؟</span>
+                        <i class="fas fa-chevron-down text-gray-500"></i>
+                    </div>
+                    <div class="faq-answer mt-4 text-gray-700">
+                        <p>المساعد الذكي في منصة TechEdX هو نظام مدعوم بالذكاء الاصطناعي يقدم الدعم الشخصي للطلاب. يعمل المساعد الذكي على:</p>
+                        <ul class="list-disc mr-6 mt-2 space-y-1">
+                            <li>تحليل أداء الطالب في مختلف المواد والمهارات</li>
+                            <li>تقديم اقتراحات مخصصة للدورات والمواد التعليمية</li>
+                            <li>الإجابة على الأسئلة الأكاديمية والتقنية</li>
+                            <li>مساعدة الطالب في حل المشكلات البرمجية والهندسية</li>
+                            <li>تقديم نصائح لتحسين مستوى التعلم وزيادة الإنتاجية</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item p-4 rounded-lg bg-white shadow-sm mb-4">
+                    <div class="faq-question flex justify-between items-center primary-text font-semibold">
+                        <span>ماذا تقدم المعامل الافتراضية؟</span>
+                        <i class="fas fa-chevron-down text-gray-500"></i>
+                    </div>
+                    <div class="faq-answer mt-4 text-gray-700">
+                        <p>توفر المعامل الافتراضية في منصة TechEdX تجارب عملية تفاعلية باستخدام تقنية الواقع الافتراضي (VR). تتيح هذه المعامل للطلاب:</p>
+                        <ul class="list-disc mr-6 mt-2 space-y-1">
+                            <li>إجراء تجارب علمية في بيئة آمنة ومحاكاة للواقع</li>
+                            <li>تصميم وبناء دوائر إلكترونية وأنظمة برمجية</li>
+                            <li>تطبيق المفاهيم النظرية بشكل عملي وتفاعلي</li>
+                            <li>التدريب على استخدام معدات وأدوات متقدمة</li>
+                            <li>العمل في مشاريع جماعية في بيئة افتراضية مشتركة</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item p-4 rounded-lg bg-white shadow-sm mb-4">
+                    <div class="faq-question flex justify-between items-center primary-text font-semibold">
+                        <span>هل المنصة متاحة مجانًا؟</span>
+                        <i class="fas fa-chevron-down text-gray-500"></i>
+                    </div>
+                    <div class="faq-answer mt-4 text-gray-700">
+                        <p>تقدم منصة TechEdX خطة مجانية أساسية تتيح الوصول إلى بعض المواد التعليمية والاستفادة من المساعد الذكي بشكل محدود. للوصول الكامل إلى جميع ميزات المنصة، بما في ذلك المعامل الافتراضية المتقدمة والمحتوى التعليمي المتخصص، تتوفر خطط اشتراك شهرية وسنوية بأسعار مناسبة للطلاب. كما توفر المنصة خصومات خاصة للجامعات والمؤسسات التعليمية.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Guides Section -->
+        <div id="guides" class="tab-content">
+            <h2 class="text-2xl font-semibold primary-text mb-6">أدلة استخدام المنصة</h2>
+            
+            <div class="guides-grid grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="guide-card bg-white rounded-lg shadow-sm overflow-hidden">
+                    <div class="guide-header bg-gray-100 p-4">
+                        <h3 class="text-lg font-semibold primary-text">دليل البدء السريع</h3>
+                    </div>
+                    <div class="guide-body p-4">
+                        <p class="text-gray-700 mb-4">تعرف على أساسيات استخدام منصة TechEdX وكيفية الاستفادة من ميزاتها الرئيسية.</p>
+                        <ul class="list-disc mr-6 space-y-1 text-gray-700">
+                            <li>إعداد الحساب وتخصيص الملف الشخصي</li>
+                            <li>استكشاف لوحة التحكم والقوائم</li>
+                            <li>الوصول إلى الدورات والمواد التعليمية</li>
+                            <li>استخدام المساعد الذكي</li>
+                        </ul>
+                        <button class="mt-4 accent-bg text-white py-2 px-4 rounded-lg hover:bg-green-600 transition">تحميل الدليل (PDF)</button>
+                    </div>
+                </div>
+
+                <div class="guide-card bg-white rounded-lg shadow-sm overflow-hidden">
+                    <div class="guide-header bg-gray-100 p-4">
+                        <h3 class="text-lg font-semibold primary-text">دليل المعامل الافتراضية</h3>
+                    </div>
+                    <div class="guide-body p-4">
+                        <p class="text-gray-700 mb-4">تعلم كيفية استخدام المعامل الافتراضية وتقنيات الواقع الافتراضي على المنصة.</p>
+                        <ul class="list-disc mr-6 space-y-1 text-gray-700">
+                            <li>إعداد نظارات الواقع الافتراضي</li>
+                            <li>التنقل في بيئة المعمل الافتراضي</li>
+                            <li>استخدام الأدوات والمعدات الافتراضية</li>
+                            <li>تسجيل النتائج وتقارير التجارب</li>
+                        </ul>
+                        <button class="mt-4 accent-bg text-white py-2 px-4 rounded-lg hover:bg-green-600 transition">تحميل الدليل (PDF)</button>
+                    </div>
+                </div>
+
+                <div class="guide-card bg-white rounded-lg shadow-sm overflow-hidden">
+                    <div class="guide-header bg-gray-100 p-4">
+                        <h3 class="text-lg font-semibold primary-text">دليل المساعد الذكي</h3>
+                    </div>
+                    <div class="guide-body p-4">
+                        <p class="text-gray-700 mb-4">استفد بأقصى درجة من المساعد الذكي المدعوم بالذكاء الاصطناعي في المنصة.</p>
+                        <ul class="list-disc mr-6 space-y-1 text-gray-700">
+                            <li>طرح الأسئلة والاستفسارات بشكل فعال</li>
+                            <li>الحصول على توصيات مخصصة للتعلم</li>
+                            <li>استخدام المساعد لحل المشكلات البرمجية</li>
+                            <li>تخصيص إعدادات المساعد الذكي</li>
+                        </ul>
+                        <button class="mt-4 accent-bg text-white py-2 px-4 rounded-lg hover:bg-green-600 transition">تحميل الدليل (PDF)</button>
+                    </div>
+                </div>
+
+                <div class="guide-card bg-white rounded-lg shadow-sm overflow-hidden">
+                    <div class="guide-header bg-gray-100 p-4">
+                        <h3 class="text-lg font-semibold primary-text">دليل الاختبارات والتقييم</h3>
+                    </div>
+                    <div class="guide-body p-4">
+                        <p class="text-gray-700 mb-4">تعرف على نظام الاختبارات والتقييم في المنصة وكيفية متابعة تقدمك الأكاديمي.</p>
+                        <ul class="list-disc mr-6 space-y-1 text-gray-700">
+                            <li>الاستعداد للاختبارات والتقييمات</li>
+                            <li>إجراء الاختبارات عبر الإنترنت</li>
+                            <li>مراجعة النتائج وتحليل الأداء</li>
+                            <li>تحسين المستوى بناءً على التقييمات</li>
+                        </ul>
+                        <button class="mt-4 accent-bg text-white py-2 px-4 rounded-lg hover:bg-green-600 transition">تحميل الدليل (PDF)</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-tutorials mt-10">
+                <h3 class="text-xl font-semibold primary-text mb-4">فيديوهات تعليمية</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="video-card bg-white rounded-lg shadow-sm overflow-hidden">
+                        <div class="video-thumbnail bg-gray-200 h-48 flex items-center justify-center">
+                            <i class="fas fa-play-circle text-5xl text-gray-400"></i>
+                        </div>
+                        <div class="video-info p-4">
+                            <h4 class="font-semibold primary-text">التعرف على واجهة المنصة</h4>
+                            <p class="text-gray-600 text-sm mt-1">مدة الفيديو: 5:30 دقائق</p>
+                            <p class="text-gray-700 mt-2">شرح تفصيلي لواجهة المستخدم في منصة TechEdX وكيفية التنقل بين الصفحات المختلفة.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="video-card bg-white rounded-lg shadow-sm overflow-hidden">
+                        <div class="video-thumbnail bg-gray-200 h-48 flex items-center justify-center">
+                            <i class="fas fa-play-circle text-5xl text-gray-400"></i>
+                        </div>
+                        <div class="video-info p-4">
+                            <h4 class="font-semibold primary-text">كيفية استخدام المعامل الافتراضية</h4>
+                            <p class="text-gray-600 text-sm mt-1">مدة الفيديو: 8:45 دقائق</p>
+                            <p class="text-gray-700 mt-2">دليل شامل لكيفية الوصول إلى المعامل الافتراضية واستخدام أدواتها في إجراء التجارب.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Support Section -->
+        <div id="support" class="tab-content">
+            <h2 class="text-2xl font-semibold primary-text mb-6">الدعم الفني</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="contact-options">
+                    <h3 class="text-xl font-semibold primary-text mb-4">طرق التواصل</h3>
+                    
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="contact-item mb-6 flex items-start">
+                            <div class="icon-container bg-blue-100 p-3 rounded-full ml-4">
+                                <i class="fas fa-envelope text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">البريد الإلكتروني</h4>
+                                <p class="text-gray-600 mt-1">support@techedx.edu.eg</p>
+                                <p class="text-gray-500 text-sm mt-1">نستجيب خلال 24 ساعة</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item mb-6 flex items-start">
+                            <div class="icon-container bg-green-100 p-3 rounded-full ml-4">
+                                <i class="fab fa-whatsapp text-green-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">واتساب</h4>
+                                <a href="https://wa.me/201013089663" class="text-gray-600 mt-1 block hover:text-green-600">+20 101 308 9663</a>
+                                <p class="text-gray-500 text-sm mt-1">مصعب محمد عبد الغني</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item flex items-start">
+                            <div class="icon-container bg-green-100 p-3 rounded-full ml-4">
+                                <i class="fab fa-whatsapp text-green-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">واتساب</h4>
+                                <a href="https://wa.me/201551079862" class="text-gray-600 mt-1 block hover:text-green-600">+20 155 107 9862</a>
+                                <p class="text-gray-500 text-sm mt-1">محمد عمر سلطان</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="operation-hours mt-6 bg-white rounded-lg shadow-sm p-6">
+                        <h4 class="font-semibold text-gray-800 mb-3">ساعات العمل</h4>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-gray-600 font-semibold">الأحد - الخميس</p>
+                                <p class="text-gray-500">9:00 ص - 5:00 م</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-600 font-semibold">الجمعة - السبت</p>
+                                <p class="text-gray-500">10:00 ص - 2:00 م</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3 class="text-xl font-semibold primary-text mb-4">إرسال استفسار</h3>
+                    
+                    <form class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="mb-4">
+                            <label for="name" class="block text-gray-700 font-medium mb-2">الاسم الكامل</label>
+                            <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="email" class="block text-gray-700 font-medium mb-2">البريد الإلكتروني</label>
+                            <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="subject" class="block text-gray-700 font-medium mb-2">الموضوع</label>
+                            <select id="subject" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                                <option value="">اختر الموضوع</option>
+                                <option value="technical">مشكلة تقنية</option>
+                                <option value="account">استفسار عن الحساب</option>
+                                <option value="billing">استفسار عن الاشتراك</option>
+                                <option value="content">استفسار عن المحتوى التعليمي</option>
+                                <option value="other">موضوع آخر</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="message" class="block text-gray-700 font-medium mb-2">الرسالة</label>
+                            <textarea id="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="ml-2">
+                                <span class="text-gray-700">أوافق على سياسة الخصوصية وشروط الاستخدام</span>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="w-full py-2 px-4 accent-bg text-white font-semibold rounded-lg hover:bg-green-600 transition">إرسال الاستفسار</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="faq-section mt-10">
+                <h3 class="text-xl font-semibold primary-text mb-4">الأسئلة الشائعة حول الدعم الفني</h3>
+                
+                <div class="faq-list">
+                    <div class="faq-item p-4 rounded-lg bg-white shadow-sm mb-4">
+                        <div class="faq-question flex justify-between items-center primary-text font-semibold">
+                            <span>ما هي أوقات الرد على استفسارات الدعم الفني؟</span>
+                            <i class="fas fa-chevron-down text-gray-500"></i>
+                        </div>
+                        <div class="faq-answer mt-4 text-gray-700">
+                            <p>يتم الرد على استفسارات البريد الإلكتروني خلال 24 ساعة من وقت الإرسال. أما بالنسبة للرسائل عبر الواتساب، فنحاول الرد في أقرب وقت ممكن خلال ساعات العمل الرسمية من الأحد إلى الخميس (9:00 ص - 5:00 م) والجمعة والسبت (10:00 ص - 2:00 م).</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item p-4 rounded-lg bg-white shadow-sm mb-4">
+                        <div class="faq-question flex justify-between items-center primary-text font-semibold">
+                            <span>كيف يمكنني الإبلاغ عن مشكلة في المنصة؟</span>
+                            <i class="fas fa-chevron-down text-gray-500"></i>
+                        </div>
+                        <div class="faq-answer mt-4 text-gray-700">
+                            <p>يمكنك الإبلاغ عن مشكلة في المنصة من خلال:</p>
+                            <ul class="list-disc mr-6 mt-2 space-y-1">
+                                <li>إرسال بريد إلكتروني إلى support@techedx.edu.eg مع وصف تفصيلي للمشكلة</li>
+                                <li>استخدام نموذج الاتصال في صفحة الدعم الفني</li>
+                                <li>التواصل مع فريق الدعم عبر الواتساب</li>
+                                <li>استخدام زر "الإبلاغ عن مشكلة" الموجود في أسفل كل صفحة من صفحات المنصة</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script>
+        // Tab switching
+        $('.tab-btn').on('click', function() {
+            const tabId = $(this).data('tab');
+            
+            // Update button styles
+            $('.tab-btn').removeClass('border-b-2 border-green-500 primary-text').addClass('text-gray-500');
+            $(this).addClass('border-b-2 border-green-500 primary-text').removeClass('text-gray-500');
+            
+            // Show selected tab content
+            $('.tab-content').removeClass('active');
+            $('#' + tabId).addClass('active');
+        });
+        
+        // FAQ questions toggle
+        $('.faq-question').on('click', function() {
+            const answer = $(this).siblings('.faq-answer');
+            const icon = $(this).find('i');
+            
+            if (answer.hasClass('show')) {
+                answer.removeClass('show');
+                icon.removeClass('fa-chevron-up').addClass('fa-chevron-down');
+            } else {
+                answer.addClass('show');
+                icon.removeClass('fa-chevron-down').addClass('fa-chevron-up');
+            }
+        });
+    </script>
+</body>
+</html>

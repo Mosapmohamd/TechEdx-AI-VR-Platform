@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechEdX - تسجيل الدخول وإنشاء حساب</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark-blue: #1e3a5f;
+            --green: #4CAF50;
+            --light-blue: #3498db;
+        }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f0f2f5;
+        }
+        .login-container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .left-panel {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, #0f172a 100%);
+            color: white;
+        }
+        .btn-primary {
+            background-color: var(--green);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #3e8e41;
+            transform: translateY(-2px);
+        }
+        .form-input {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 16px;
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            border-color: var(--light-blue);
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+        }
+        .tab-active {
+            border-bottom: 3px solid var(--green);
+            color: var(--dark-blue);
+            font-weight: bold;
+        }
+        .ai-icon {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .vr-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        /* Hide form elements initially */
+        #registerForm {
+            display: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="login-container w-full max-w-6xl flex flex-col md:flex-row">
+        <!-- Left Panel with branding -->
+        <div class="left-panel p-8 md:p-12 md:w-1/2 flex flex-col justify-between">
+            <div>
+                <h1 class="text-4xl md:text-5xl font-bold mb-2">TechEdX</h1>
+                <p class="text-xl opacity-80 mb-8">منصة التعليم التقني المتطورة</p>
+                
+                <div class="space-y-6 mt-10">
+                    <div class="flex items-center space-x-4 space-x-reverse">
+                        <div class="rounded-full bg-white bg-opacity-10 p-3">
+                            <i class="fas fa-robot text-2xl ai-icon text-green-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">مساعد ذكي شخصي</h3>
+                            <p class="opacity-80">يحلل أداءك ويقترح مسارات تعليمية مخصصة</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4 space-x-reverse">
+                        <div class="rounded-full bg-white bg-opacity-10 p-3">
+                            <i class="fas fa-vr-cardboard text-2xl vr-icon text-blue-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">معامل واقع افتراضي</h3>
+                            <p class="opacity-80">تجارب معملية تفاعلية بتقنية الواقع الافتراضي</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4 space-x-reverse">
+                        <div class="rounded-full bg-white bg-opacity-10 p-3">
+                            <i class="fas fa-graduation-cap text-2xl text-yellow-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">محتوى تعليمي متخصص</h3>
+                            <p class="opacity-80">دورات مصممة خصيصاً لطلاب الجامعات التقنية</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-10">
+                <p class="text-sm opacity-70">تطوير بواسطة فريق TechEdX &copy; 2023</p>
+            </div>
+        </div>
+        
+        <!-- Right Panel with forms -->
+        <div class="p-8 md:p-12 md:w-1/2 bg-white">
+            <!-- Tabs for switching between login and register -->
+            <div class="flex border-b mb-8">
+                <button id="loginTab" class="tab-active pb-3 px-4 text-lg flex-1 focus:outline-none">تسجيل الدخول</button>
+                <button id="registerTab" class="pb-3 px-4 text-lg text-gray-500 flex-1 focus:outline-none">إنشاء حساب جديد</button>
+            </div>
+            
+            <!-- Login Form -->
+            <form id="loginForm" class="space-y-6">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">مرحباً بعودتك!</h2>
+                <p class="text-gray-600 mb-8">قم بتسجيل الدخول للوصول إلى منصة التعلم المتطورة</p>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label for="loginEmail" class="block text-gray-700 font-medium mb-2">البريد الإلكتروني</label>
+                        <input type="email" id="loginEmail" class="form-input w-full" placeholder="أدخل بريدك الإلكتروني" required>
+                    </div>
+                    
+                    <div>
+                        <label for="loginPassword" class="block text-gray-700 font-medium mb-2">كلمة المرور</label>
+                        <input type="password" id="loginPassword" class="form-input w-full" placeholder="أدخل كلمة المرور" required>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="remember" class="h-4 w-4 text-green-500">
+                            <label for="remember" class="mr-2 text-gray-700">تذكرني</label>
+                        </div>
+                        <a href="#" class="text-blue-600 hover:underline">نسيت كلمة المرور؟</a>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-primary w-full py-3 rounded-lg text-lg font-medium">
+                    تسجيل الدخول
+                </button>
+                
+                <div class="mt-6 text-center">
+                    <p class="text-gray-600">أو تسجيل الدخول باستخدام</p>
+                    <div class="flex justify-center mt-4 space-x-4 space-x-reverse">
+                        <button type="button" class="p-2 bg-gray-100 rounded-full hover:bg-gray-200">
+                            <i class="fab fa-google text-xl"></i>
+                        </button>
+                        <button type="button" class="p-2 bg-gray-100 rounded-full hover:bg-gray-200">
+                            <i class="fab fa-facebook-f text-xl text-blue-600"></i>
+                        </button>
+                        <button type="button" class="p-2 bg-gray-100 rounded-full hover:bg-gray-200">
+                            <i class="fab fa-twitter text-xl text-blue-400"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            
+            <!-- Register Form -->
+            <form id="registerForm" class="space-y-6">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">إنشاء حساب جديد</h2>
+                <p class="text-gray-600 mb-8">انضم إلى منصة TechEdX وابدأ رحلتك التعليمية المتطورة</p>
+                
+                <div class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="firstName" class="block text-gray-700 font-medium mb-2">الاسم الأول</label>
+                            <input type="text" id="firstName" class="form-input w-full" placeholder="أدخل اسمك الأول" required>
+                        </div>
+                        <div>
+                            <label for="lastName" class="block text-gray-700 font-medium mb-2">اسم العائلة</label>
+                            <input type="text" id="lastName" class="form-input w-full" placeholder="أدخل اسم العائلة" required>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="regEmail" class="block text-gray-700 font-medium mb-2">البريد الإلكتروني</label>
+                        <input type="email" id="regEmail" class="form-input w-full" placeholder="أدخل بريدك الإلكتروني" required>
+                    </div>
+                    
+                    <div>
+                        <label for="regPassword" class="block text-gray-700 font-medium mb-2">كلمة المرور</label>
+                        <input type="password" id="regPassword" class="form-input w-full" placeholder="أدخل كلمة المرور (8 أحرف على الأقل)" required minlength="8">
+                    </div>
+                    
+                    <div>
+                        <label for="confirmPassword" class="block text-gray-700 font-medium mb-2">تأكيد كلمة المرور</label>
+                        <input type="password" id="confirmPassword" class="form-input w-full" placeholder="أعد إدخال كلمة المرور" required minlength="8">
+                    </div>
+                    
+                    <div>
+                        <label for="university" class="block text-gray-700 font-medium mb-2">الجامعة</label>
+                        <select id="university" class="form-input w-full" required>
+                            <option value="" disabled selected>اختر جامعتك</option>
+                            <option value="cairo">جامعة القاهرة</option>
+                            <option value="alex">جامعة الإسكندرية</option>
+                            <option value="ain_shams">جامعة عين شمس</option>
+                            <option value="assiut">جامعة أسيوط</option>
+                            <option value="mansoura">جامعة المنصورة</option>
+                            <option value="other">أخرى</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label for="fieldOfStudy" class="block text-gray-700 font-medium mb-2">التخصص</label>
+                        <select id="fieldOfStudy" class="form-input w-full" required>
+                            <option value="" disabled selected>اختر تخصصك</option>
+                            <option value="cs">علوم الحاسب</option>
+                            <option value="it">تكنولوجيا المعلومات</option>
+                            <option value="ee">الهندسة الإلكترونية</option>
+                            <option value="ce">هندسة الحاسب</option>
+                            <option value="me">الهندسة الميكانيكية</option>
+                            <option value="other">أخرى</option>
+                        </select>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <input type="checkbox" id="terms" class="h-4 w-4 text-green-500" required>
+                        <label for="terms" class="mr-2 text-gray-700">
+                            أوافق على <a href="#" class="text-blue-600 hover:underline">شروط الاستخدام</a> و <a href="#" class="text-blue-600 hover:underline">سياسة الخصوصية</a>
+                        </label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-primary w-full py-3 rounded-lg text-lg font-medium">
+                    إنشاء حساب
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Toggle between login and register forms
+        document.getElementById('loginTab').addEventListener('click', function() {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('registerForm').style.display = 'none';
+            this.classList.add('tab-active');
+            document.getElementById('registerTab').classList.remove('tab-active');
+            document.getElementById('registerTab').classList.add('text-gray-500');
+            this.classList.remove('text-gray-500');
+        });
+        
+        document.getElementById('registerTab').addEventListener('click', function() {
+            document.getElementById('registerForm').style.display = 'block';
+            document.getElementById('loginForm').style.display = 'none';
+            this.classList.add('tab-active');
+            document.getElementById('loginTab').classList.remove('tab-active');
+            document.getElementById('loginTab').classList.add('text-gray-500');
+            this.classList.remove('text-gray-500');
+        });
+        
+        // Form submission handler for login
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // Here you would typically send the login data to your server
+            console.log('Login attempt:', { email, password });
+            
+            // Redirect to dashboard (for demo purposes)
+            alert('تم تسجيل الدخول بنجاح! سيتم تحويلك إلى لوحة التحكم');
+            window.location.href = 'techedx-student-dashboard.html';
+        });
+        
+        // Form submission handler for registration
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const university = document.getElementById('university').value;
+            const fieldOfStudy = document.getElementById('fieldOfStudy').value;
+            
+            // Check if passwords match
+            if (password !== confirmPassword) {
+                alert('كلمات المرور غير متطابقة!');
+                return;
+            }
+            
+            // Here you would typically send the registration data to your server
+            console.log('Registration attempt:', { 
+                firstName, 
+                lastName, 
+                email, 
+                password,
+                university,
+                fieldOfStudy
+            });
+            
+            // For demo purposes, create a CSV-like string with the user data that could be saved to Excel
+            const userData = `${firstName},${lastName},${email},${university},${fieldOfStudy}\n`;
+            
+            // In a real application, you'd send this to your server to save
+            // For demo, just show a confirmation
+            alert('تم إنشاء الحساب بنجاح! سيتم تحويلك إلى لوحة التحكم');
+            
+            // Example of how you might export to CSV/Excel in a real application
+            // const blob = new Blob([userData], { type: 'text/csv' });
+            // const url = window.URL.createObjectURL(blob);
+            // const a = document.createElement('a');
+            // a.href = url;
+            // a.download = 'user_data.csv';
+            // a.click();
+            
+            window.location.href = 'techedx-student-dashboard.html';
+        });
+    </script>
+</body>
+</html>
